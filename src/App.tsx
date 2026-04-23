@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import { MODULES_STUDY, CRT_DATA, CRL_DATA, PM_ACTION_STEPS, TRAINING_QUIZ } from './constants';
+import { MODULES_STUDY, CRT_DATA, CRL_DATA, PM_ACTION_STEPS, TRAINING_QUIZ, PM_ACTION_CARDS } from './constants';
 
 // --- ROBUST ASSET HELPERS ---
 const getAssetUrl = (path: string): string => {
@@ -77,7 +77,7 @@ function SbmLogo({ className = "h-10 w-auto" }: { className?: string }) {
 // -----------------------------
 import { PMStep, QuizQuestion, ModuleCategory, ModuleStudy } from './types';
 
-type Tab = 'welcome' | 'study' | 'quiz' | 'registration';
+type Tab = 'welcome' | 'study' | 'quiz' | 'registration' | 'pm-action';
 type Language = 'en' | 'pt';
 
 interface UserData {
@@ -137,6 +137,7 @@ export default function App() {
           {[
             { id: 'welcome', label: lang === 'en' ? 'Module Overview' : 'Visão dos Módulos', icon: BookOpen },
             { id: 'quiz', label: lang === 'en' ? 'Final Quiz' : 'Quiz Final', icon: Trophy },
+            { id: 'pm-action', label: 'PM Action', icon: Settings },
           ].map((item) => (
             <button
               key={item.id}
@@ -276,6 +277,9 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+            )}
+            {activeTab === 'pm-action' && (
+              <PmActionView lang={lang} t={t} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -1090,4 +1094,67 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
     </div>
   );
 }
+function PmActionView({ lang, t }: { lang: Language, t: any }) {
+  return (
+    <div className="space-y-12 pb-20">
+      <header className="space-y-4">
+        <h1 className="text-5xl lg:text-6xl font-black text-sbm-dark-grey tracking-tighter max-w-4xl leading-[1.1]">
+          {lang === 'en' ? 'PM Action Study Cards' : 'Cards de Estudo: PM Action'}
+        </h1>
+        <p className="text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
+          {lang === 'en' 
+            ? 'Review the essential steps and interfaces for PM Action management through visual study cards.' 
+            : 'Revise as etapas e interfaces essenciais para a gestão de Ações de PM através de cards visuais de estudo.'}
+        </p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {PM_ACTION_CARDS.map((card) => (
+          <motion.div 
+            key={card.id}
+            whileHover={{ y: -10 }}
+            className="bg-white rounded-[40px] shadow-xl overflow-hidden border border-slate-100 flex flex-col group"
+          >
+            <div className="h-64 overflow-hidden bg-slate-100 relative">
+              <img 
+                src={getAssetUrl(card.image)} 
+                alt={t(card.title)} 
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
+                <span className="text-white text-xs font-black uppercase tracking-widest">{lang === 'en' ? 'View Details' : 'Ver Detalhes'}</span>
+              </div>
+            </div>
+            <div className="p-8 space-y-4 flex-1 flex flex-col justify-between">
+              <div className="space-y-2">
+                <span className="text-[10px] font-black text-sbm-orange uppercase tracking-widest">Step {card.id}</span>
+                <h3 className="text-2xl font-black text-sbm-dark-grey tracking-tight">{t(card.title)}</h3>
+                <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                  {t(card.description)}
+                </p>
+              </div>
+              <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
+                 <div className="flex gap-1">
+                   <div className="w-2 h-2 rounded-full bg-sbm-orange"></div>
+                   <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+                   <div className="w-2 h-2 rounded-full bg-slate-200"></div>
+                 </div>
+                 <ArrowRight size={20} className="text-sbm-orange opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0" />
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      {/* Decorative empty state if needed */}
+      {PM_ACTION_CARDS.length === 0 && (
+        <div className="text-center py-20 bg-white rounded-[40px] border-8 border-slate-100">
+           <p className="text-slate-400 font-bold uppercase tracking-widest">Aguardando novas imagens...</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Keep original file end if any
 
