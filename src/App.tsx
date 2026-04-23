@@ -14,8 +14,10 @@ import {
   Search,
   Database,
   ArrowRight,
+  ArrowLeft,
   Info,
   CheckCircle2,
+  CheckCircle,
   XCircle,
   AlertTriangle,
   ShieldAlert,
@@ -1118,16 +1120,22 @@ function PmActionView({ lang, t }: { lang: Language, t: any }) {
   return (
     <div className="max-w-6xl mx-auto space-y-10 pb-20">
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="space-y-4">
-          <h1 className="text-5xl font-black text-sbm-dark-grey tracking-tighter leading-[1.1]">
-            {lang === 'en' ? 'PM Action: Step-by-Step' : 'PM Action: Passo a Passo'}
-          </h1>
-          <p className="text-xl text-slate-500 font-medium max-w-xl leading-relaxed">
-            {lang === 'en' 
-              ? 'Follow the visual guide to master the PM Action generation process.' 
-              : 'Siga o guia visual para dominar o processo de geração de Ações de PM.'}
-          </p>
+        <div className="space-y-6">
+          <div className="bg-white p-3 rounded-2xl inline-block shadow-xl border border-slate-50">
+            <SbmLogo className="h-10 w-auto" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-5xl font-black text-sbm-dark-grey tracking-tighter leading-[1.1]">
+              {lang === 'en' ? 'PM Action Training' : 'Treinamento PM Action'}
+            </h1>
+            <p className="text-xl text-slate-400 font-medium max-w-xl leading-relaxed">
+              {lang === 'en' 
+                ? 'Follow the technical sequence to master PM Action generation.' 
+                : 'Siga a sequência técnica para dominar a geração de Ações de PM.'}
+            </p>
+          </div>
         </div>
+
         <div className="flex items-center gap-4 bg-white p-2 rounded-3xl shadow-xl border border-slate-100">
           <button 
             onClick={prevStep}
@@ -1153,62 +1161,68 @@ function PmActionView({ lang, t }: { lang: Language, t: any }) {
       <AnimatePresence mode="wait">
         <motion.div 
           key={currentStep}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
           className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
         >
-          {/* Main Visual Card */}
-          <div className="lg:col-span-8 bg-white rounded-[50px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100">
-             <div className="aspect-video relative group">
+          {/* Visual Evidence Card */}
+          <div className="lg:col-span-7 bg-white rounded-[50px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100 group cursor-zoom-in">
+             <div className="aspect-video relative">
                 <img 
                   src={getAssetUrl(card.image)} 
                   alt={t(card.title)} 
-                  className="w-full h-full object-contain bg-slate-50 transition-transform duration-700"
+                  className="w-full h-full object-contain bg-slate-50 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute top-6 left-6 bg-sbm-orange text-white px-6 py-2 rounded-full font-black text-sm shadow-xl flex items-center gap-2">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                  STEP {card.id}
+                <div className="absolute top-6 left-6 bg-sbm-dark-grey text-white px-6 py-2 rounded-full font-black text-xs shadow-xl flex items-center gap-2">
+                  <Settings size={14} className="text-sbm-orange" />
+                  IFS SYSTEM INTERFACE
                 </div>
              </div>
           </div>
 
-          {/* Details & Instructions */}
-          <div className="lg:col-span-4 space-y-8 lg:pt-10">
-            <div className="space-y-6">
-              <div className="inline-block px-4 py-1 rounded-full bg-orange-50 text-sbm-orange text-xs font-black uppercase tracking-widest">
-                Technical Procedure
+          {/* Contextual Card Info */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="bg-white p-10 rounded-[50px] shadow-2xl border border-slate-50 space-y-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sbm-orange/5 rounded-bl-[100px]" />
+              
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-sbm-orange text-white text-[10px] font-black uppercase tracking-widest">
+                  <CheckCircle size={12} />
+                  Step {card.id}
+                </div>
+                <h2 className="text-4xl font-black text-sbm-dark-grey tracking-tight leading-tight">
+                  {t(card.title)}
+                </h2>
+                <p className="text-lg text-slate-500 font-medium leading-relaxed italic">
+                  "{t(card.description)}"
+                </p>
               </div>
-              <h2 className="text-4xl font-black text-sbm-dark-grey tracking-tight leading-tight">
-                {t(card.title)}
-              </h2>
-              <p className="text-xl text-slate-500 font-medium leading-relaxed italic">
-                "{t(card.description)}"
-              </p>
-            </div>
 
-            <div className="p-8 bg-slate-100/50 rounded-[40px] border border-slate-100 space-y-4">
-               <div className="flex items-center gap-3 text-sbm-dark-grey font-black uppercase text-xs tracking-widest">
-                 <CheckCircle size={18} className="text-green-500" />
-                 {lang === 'en' ? 'Key Verification' : 'Verificação Chave'}
-               </div>
-               <p className="text-slate-600 text-sm font-medium">
-                 {lang === 'en' 
-                   ? 'Ensure the interface matches the screenshot exactly before proceeding to the next step.' 
-                   : 'Certifique-se de que a interface corresponda exatamente ao print antes de prosseguir para a próxima etapa.'}
-               </p>
-            </div>
-
-            {/* Quick Navigation dots */}
-            <div className="flex flex-wrap gap-2 pt-4">
-              {PM_ACTION_CARDS.map((_, idx) => (
-                <button 
-                  key={idx}
-                  onClick={() => setCurrentStep(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-8 bg-sbm-orange' : 'w-2 bg-slate-200 hover:bg-slate-300'}`}
-                />
-              ))}
+              <div className="pt-8 space-y-6">
+                <div className="flex gap-2">
+                  {PM_ACTION_CARDS.map((_, idx) => (
+                    <button 
+                      key={idx}
+                      onClick={() => setCurrentStep(idx)}
+                      className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-10 bg-sbm-orange' : 'w-2 bg-slate-100 hover:bg-slate-200'}`}
+                    />
+                  ))}
+                </div>
+                
+                <div className="p-6 bg-orange-50/50 rounded-3xl border border-orange-100">
+                   <p className="text-sbm-orange text-sm font-black uppercase tracking-widest mb-2 flex items-center gap-2">
+                     <Info size={14} />
+                     Pro-Tip
+                   </p>
+                   <p className="text-slate-600 text-xs font-medium leading-relaxed">
+                     {lang === 'en' 
+                       ? 'Always verify the object status in the Equipment Object screen before attempting this step.' 
+                       : 'Sempre verifique o status do objeto na tela Equipment Object antes de realizar este passo.'}
+                   </p>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
