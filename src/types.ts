@@ -51,3 +51,10 @@ export interface QuizQuestion {
   correctAnswer: number;
   explanation: LocalizedString;
 }
+
+export interface StudyCard {
+  id: number;
+  title: LocalizedString;
+  description: LocalizedString;
+  image: string;
+}
