@@ -1,4 +1,4 @@
-import { CRTType, CRLType, PMStep, QuizQuestion, ModuleStudy } from './types';
+import { CRTType, CRLType, PMStep, QuizQuestion, ModuleStudy, StudyCard } from './types';
 
 /**
  * MODULE STUDY CONTENT
@@ -797,5 +797,107 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       en: "According to simplifying rules, motors driving equipment classified as SECE (due to loss of containment) shall not receive the SECE classification themselves.",
       pt: "De acordo com as regras de simplificação, motores que acionam equipamentos classificados como SECE (devido à perda de contenção) não devem receber a classificação SECE."
     }
+  }
+];
+
+export const PM_ACTION_CARDS: StudyCard[] = [
+  {
+    id: 1,
+    title: { en: 'Initiate Generation', pt: 'Iniciar Geração' },
+    description: { 
+      en: 'Start the PM Action generation process directly from the Work Task Template screen.',
+      pt: 'Inicie o processo de geração de Ação de PM diretamente da tela de Modelo de Tarefa de Trabalho.'
+    },
+    image: 'assets/1.Generate PM action from Work Task Template.png'
+  },
+  {
+    id: 2,
+    title: { en: 'Open Search', pt: 'Abrir Busca' },
+    description: { 
+      en: 'Access the search tool strip to locate the desired template in the system.',
+      pt: 'Acesse a barra de ferramentas de busca para localizar o modelo desejado no sistema.'
+    },
+    image: 'assets/2 Click on the tool strip item Search..png'
+  },
+  {
+    id: 3,
+    title: { en: 'Identify Template Field', pt: 'Identificar Campo de Modelo' },
+    description: { 
+      en: 'Locate and click on the Task Template ID field to prepare for filtering.',
+      pt: 'Localize e clique no campo ID do Modelo de Tarefa para preparar a filtragem.'
+    },
+    image: 'assets/3 click on the field Task Template ID.png'
+  },
+  {
+    id: 4,
+    title: { en: 'Input Template ID', pt: 'Inserir ID do Modelo' },
+    description: { 
+      en: 'Enter the specific Task Template ID you wish to use as a baseline.',
+      pt: 'Insira o ID específico do Modelo de Tarefa que deseja usar como linha de base.'
+    },
+    image: 'assets/4 Enter Task Template ID.png'
+  },
+  {
+    id: 5,
+    title: { en: 'Execute Filtering', pt: 'Executar Filtragem' },
+    description: { 
+      en: 'Click the Search command button to find the specific template record.',
+      pt: 'Clique no botão de comando Buscar para encontrar o registro específico do modelo.'
+    },
+    image: 'assets/5 clique on the command button Search.png'
+  },
+  {
+    id: 6,
+    title: { en: 'Verify Active Status', pt: 'Verificar Status Ativo' },
+    description: { 
+      en: 'Ensure the Work Task status is "Active". PM Actions cannot be generated from preliminary templates.',
+      pt: 'Garanta que o status da Tarefa seja "Ativo". Ações de PM não podem ser geradas a partir de modelos preliminares.'
+    },
+    image: 'assets/6 The Status of Work Task is Active..png'
+  },
+  {
+    id: 7,
+    title: { en: 'Context Menu', pt: 'Menu de Contexto' },
+    description: { 
+      en: 'Right-click on the form background to reveal the technical action menu.',
+      pt: 'Clique com o botão direito no fundo do formulário para revelar o menu de ações técnicas.'
+    },
+    image: 'assets/7 To Generate PM Action Right click on the background of the form.png'
+  },
+  {
+    id: 8,
+    title: { en: 'Generate PM Action', pt: 'Gerar Ação de PM' },
+    description: { 
+      en: 'Select the "Generate PM Action" menu item to launch the generation wizard.',
+      pt: 'Selecione o item de menu "Gerar Ação de PM" para iniciar o assistente de geração.'
+    },
+    image: 'assets/8 Click on the menu item Generate PM Action.png'
+  },
+  {
+    id: 9,
+    title: { en: 'Site Configuration', pt: 'Configuração de Site' },
+    description: { 
+      en: 'Access the Site data field and click the list button to associate a specific location.',
+      pt: 'Acesse o campo de dados Site e clique no botão de lista para associar um local específico.'
+    },
+    image: 'assets/9 Click on the data field Site It enbles to connect sites to the PM Action Click on the button List.png'
+  },
+  {
+    id: 10,
+    title: { en: 'Select & Confirm Site', pt: 'Selecionar e Confirmar Site' },
+    description: { 
+      en: 'Choose the CDI site from the list and click OK to confirm the association.',
+      pt: 'Escolha o site CDI na lista e clique em OK para confirmar a associação.'
+    },
+    image: 'assets/10 Click on the column Site with the value CDI.Click on the push butthon OK.png'
+  },
+  {
+    id: 11,
+    title: { en: 'Object Identification', pt: 'Identificação do Objeto' },
+    description: { 
+      en: 'Link the specific Equipment Object ID to ensure the PM Action is applied to the correct asset.',
+      pt: 'Vincule o ID do Objeto de Equipamento específico para garantir que a Ação de PM seja aplicada ao ativo correto.'
+    },
+    image: 'assets/11 Click on the data field Object ID. It refers to an identity for the equipment object. Click on the list.png'
   }
 ];
