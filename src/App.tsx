@@ -622,9 +622,9 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
                      <div className="bg-slate-100/50 p-4 rounded-[40px] border border-slate-200">
                         <div className="rounded-[28px] overflow-hidden border-2 border-slate-200 shadow-2xl bg-white">
                           <img 
-                            src={getAssetUrl('assets/sbm-logo.png')} // Fallback if artifact image not accessible
+                            src={getAssetUrl(section.image)} 
                             alt="Document Asset" 
-                            className="w-full h-auto opacity-10 grayscale hover:opacity-100 hover:grayscale-0 transition-all cursor-zoom-in"
+                            className="w-full h-auto opacity-100 transition-all cursor-zoom-in"
                           />
                         </div>
                      </div>
@@ -925,10 +925,9 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
                {question.image && (
                  <div className="rounded-2xl overflow-hidden border-4 border-slate-100 shadow-inner bg-slate-50">
                    <img 
-                     src={`/api/artifacts/${question.image}`} 
+                     src={getAssetUrl(question.image)} 
                      alt="Technical Reference" 
                      className="w-full h-auto max-h-48 object-contain"
-                     referrerPolicy="no-referrer"
                    />
                  </div>
                )}
@@ -1013,10 +1012,9 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
            {question.image && (
              <div className="rounded-2xl overflow-hidden border-4 border-slate-100 shadow-inner bg-slate-50">
                <img 
-                 src={`/api/artifacts/${question.image}`} 
+                 src={getAssetUrl(question.image)} 
                  alt="Technical Reference" 
                  className="w-full h-auto max-h-64 object-contain"
-                 referrerPolicy="no-referrer"
                />
              </div>
            )}
