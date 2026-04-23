@@ -1095,63 +1095,124 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
   );
 }
 function PmActionView({ lang, t }: { lang: Language, t: any }) {
+  const [currentStep, setCurrentStep] = useState(0);
+  const totalSteps = PM_ACTION_CARDS.length;
+  const card = PM_ACTION_CARDS[currentStep];
+
+  const nextStep = () => {
+    if (currentStep < totalSteps - 1) setCurrentStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    if (currentStep > 0) setCurrentStep(currentStep - 1);
+  };
+
+  if (totalSteps === 0) {
+    return (
+      <div className="text-center py-20 bg-white rounded-[40px] border-8 border-slate-100">
+         <p className="text-slate-400 font-bold uppercase tracking-widest">Aguardando novas imagens...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-12 pb-20">
-      <header className="space-y-4">
-        <h1 className="text-5xl lg:text-6xl font-black text-sbm-dark-grey tracking-tighter max-w-4xl leading-[1.1]">
-          {lang === 'en' ? 'PM Action Study Cards' : 'Cards de Estudo: PM Action'}
-        </h1>
-        <p className="text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
-          {lang === 'en' 
-            ? 'Review the essential steps and interfaces for PM Action management through visual study cards.' 
-            : 'Revise as etapas e interfaces essenciais para a gestão de Ações de PM através de cards visuais de estudo.'}
-        </p>
+    <div className="max-w-6xl mx-auto space-y-10 pb-20">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-4">
+          <h1 className="text-5xl font-black text-sbm-dark-grey tracking-tighter leading-[1.1]">
+            {lang === 'en' ? 'PM Action: Step-by-Step' : 'PM Action: Passo a Passo'}
+          </h1>
+          <p className="text-xl text-slate-500 font-medium max-w-xl leading-relaxed">
+            {lang === 'en' 
+              ? 'Follow the visual guide to master the PM Action generation process.' 
+              : 'Siga o guia visual para dominar o processo de geração de Ações de PM.'}
+          </p>
+        </div>
+        <div className="flex items-center gap-4 bg-white p-2 rounded-3xl shadow-xl border border-slate-100">
+          <button 
+            onClick={prevStep}
+            disabled={currentStep === 0}
+            className={`p-4 rounded-2xl transition-all ${currentStep === 0 ? 'text-slate-200' : 'text-sbm-orange hover:bg-orange-50'}`}
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <div className="flex flex-col items-center px-4 min-w-[100px]">
+            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">{lang === 'en' ? 'Step' : 'Passo'}</span>
+            <span className="text-2xl font-black text-sbm-dark-grey">{currentStep + 1} <span className="text-slate-300 text-lg">/ {totalSteps}</span></span>
+          </div>
+          <button 
+            onClick={nextStep}
+            disabled={currentStep === totalSteps - 1}
+            className={`p-4 rounded-2xl transition-all ${currentStep === totalSteps - 1 ? 'text-slate-200' : 'text-sbm-orange hover:bg-orange-50'}`}
+          >
+            <ArrowRight size={24} />
+          </button>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {PM_ACTION_CARDS.map((card) => (
-          <motion.div 
-            key={card.id}
-            whileHover={{ y: -10 }}
-            className="bg-white rounded-[40px] shadow-xl overflow-hidden border border-slate-100 flex flex-col group"
-          >
-            <div className="h-64 overflow-hidden bg-slate-100 relative">
-              <img 
-                src={getAssetUrl(card.image)} 
-                alt={t(card.title)} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-8">
-                <span className="text-white text-xs font-black uppercase tracking-widest">{lang === 'en' ? 'View Details' : 'Ver Detalhes'}</span>
+      <AnimatePresence mode="wait">
+        <motion.div 
+          key={currentStep}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
+        >
+          {/* Main Visual Card */}
+          <div className="lg:col-span-8 bg-white rounded-[50px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100">
+             <div className="aspect-video relative group">
+                <img 
+                  src={getAssetUrl(card.image)} 
+                  alt={t(card.title)} 
+                  className="w-full h-full object-contain bg-slate-50 transition-transform duration-700"
+                />
+                <div className="absolute top-6 left-6 bg-sbm-orange text-white px-6 py-2 rounded-full font-black text-sm shadow-xl flex items-center gap-2">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  STEP {card.id}
+                </div>
+             </div>
+          </div>
+
+          {/* Details & Instructions */}
+          <div className="lg:col-span-4 space-y-8 lg:pt-10">
+            <div className="space-y-6">
+              <div className="inline-block px-4 py-1 rounded-full bg-orange-50 text-sbm-orange text-xs font-black uppercase tracking-widest">
+                Technical Procedure
               </div>
+              <h2 className="text-4xl font-black text-sbm-dark-grey tracking-tight leading-tight">
+                {t(card.title)}
+              </h2>
+              <p className="text-xl text-slate-500 font-medium leading-relaxed italic">
+                "{t(card.description)}"
+              </p>
             </div>
-            <div className="p-8 space-y-4 flex-1 flex flex-col justify-between">
-              <div className="space-y-2">
-                <span className="text-[10px] font-black text-sbm-orange uppercase tracking-widest">Step {card.id}</span>
-                <h3 className="text-2xl font-black text-sbm-dark-grey tracking-tight">{t(card.title)}</h3>
-                <p className="text-slate-500 font-medium text-sm leading-relaxed">
-                  {t(card.description)}
-                </p>
-              </div>
-              <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
-                 <div className="flex gap-1">
-                   <div className="w-2 h-2 rounded-full bg-sbm-orange"></div>
-                   <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-                   <div className="w-2 h-2 rounded-full bg-slate-200"></div>
-                 </div>
-                 <ArrowRight size={20} className="text-sbm-orange opacity-0 group-hover:opacity-100 transition-all -translate-x-4 group-hover:translate-x-0" />
-              </div>
+
+            <div className="p-8 bg-slate-100/50 rounded-[40px] border border-slate-100 space-y-4">
+               <div className="flex items-center gap-3 text-sbm-dark-grey font-black uppercase text-xs tracking-widest">
+                 <CheckCircle size={18} className="text-green-500" />
+                 {lang === 'en' ? 'Key Verification' : 'Verificação Chave'}
+               </div>
+               <p className="text-slate-600 text-sm font-medium">
+                 {lang === 'en' 
+                   ? 'Ensure the interface matches the screenshot exactly before proceeding to the next step.' 
+                   : 'Certifique-se de que a interface corresponda exatamente ao print antes de prosseguir para a próxima etapa.'}
+               </p>
             </div>
-          </motion.div>
-        ))}
-      </div>
-      
-      {/* Decorative empty state if needed */}
-      {PM_ACTION_CARDS.length === 0 && (
-        <div className="text-center py-20 bg-white rounded-[40px] border-8 border-slate-100">
-           <p className="text-slate-400 font-bold uppercase tracking-widest">Aguardando novas imagens...</p>
-        </div>
-      )}
+
+            {/* Quick Navigation dots */}
+            <div className="flex flex-wrap gap-2 pt-4">
+              {PM_ACTION_CARDS.map((_, idx) => (
+                <button 
+                  key={idx}
+                  onClick={() => setCurrentStep(idx)}
+                  className={`h-2 rounded-full transition-all duration-300 ${idx === currentStep ? 'w-8 bg-sbm-orange' : 'w-2 bg-slate-200 hover:bg-slate-300'}`}
+                />
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
