@@ -124,6 +124,45 @@ export const MODULES_STUDY: ModuleStudy[] = [
         image: 'screenshot_for_page_23.png'
       }
     ]
+  },
+  {
+    category: 'FCA',
+    title: { en: 'Functional Criticality Assessment (FCA)', pt: 'Avaliação de Criticidade Funcional (FCA)' },
+    pdfUrl: 'assets/docs/PC58963-OAPRMMWI999001A4 FCA WI update - BP review_feedbac to BP.pdf',
+    intro: {
+      en: 'Methodology for systematically identifying, classifying, and evaluating consequences in presence of a failure event to direct Maintenance Program efforts.',
+      pt: 'Metodologia para identificar, classificar e avaliar sistematicamente as consequências na presença de um evento de falha para direcionar os esforços do Programa de Manutenção.'
+    },
+    sections: [
+      {
+        title: { en: 'Taxonomy & Technical Hierarchy', pt: 'Taxonomia e Hierarquia Técnica' },
+        content: {
+          en: 'All maintainable items are assessed through the Technical Hierarchy, starting with an equipment unit (Level 6) and cascading to a Component item (Level 8), according to the ISO 14224 taxonomy classification.',
+          pt: 'Todos os itens manteníveis são avaliados através da Hierarquia Técnica, começando com uma unidade de equipamento (Nível 6) e descendo até um item de Componente (Nível 8), de acordo com a classificação taxonômica ISO 14224.'
+        }
+      },
+      {
+        title: { en: 'Main Functions & Sub Functions', pt: 'Funções Principais e Subfunções' },
+        content: {
+          en: 'A system fulfills its purpose via Main Functions (e.g., Pumping, Cooling). Within a Main Function, Sub Functions (e.g., Controlling, Monitoring, Pressure relief) contribute to its execution. Any Sub Function failure must be considered when assessing the loss of the Main Function.',
+          pt: 'Um sistema cumpre seu propósito através de Funções Principais (ex: Bombeamento, Resfriamento). Dentro de uma Função Principal, Subfunções (ex: Controle, Monitoramento, Alívio de pressão) contribuem para sua execução. Qualquer falha de Subfunção deve ser considerada ao avaliar a perda da Função Principal.'
+        }
+      },
+      {
+        title: { en: 'Risk Derivation Matrix', pt: 'Matriz de Derivação de Risco' },
+        content: {
+          en: 'Risk is the combination of Likelihood and Severity. Categories analyzed: Safety, Environment, Production, and Business. The highest score determines the Risk Level: Low (1-3) leads to "Run to Failure", Medium (4-6) requires proactive maintenance, High (7-9) is mandatory for SECEs.',
+          pt: 'Risco é a combinação de Probabilidade e Severidade. Categorias analisadas: Segurança, Meio Ambiente, Produção e Negócios. A pontuação mais alta determina o Nível de Risco: Baixo (1-3) leva a "Operar até Falhar", Médio (4-6) exige manutenção proativa, Alto (7-9) é obrigatório para SECEs.'
+        }
+      },
+      {
+        title: { en: 'Object Type Designation', pt: 'Designação do Tipo de Objeto' },
+        content: {
+          en: 'Based on Severity: Slight or Minor impact results in NCE (Non-Critical Element). Moderate, Major, or Massive impacts consider Likelihood to classify as PCE (Production Critical), BCE (Business Critical), or SECE (Safety/Environmental Critical Element).',
+          pt: 'Com base na Severidade: Impacto Leve ou Menor resulta em NCE (Elemento Não Crítico). Impactos Moderado, Maior ou Massivo consideram a Probabilidade para classificar como PCE (Crítico de Produção), BCE (Crítico de Negócios) ou SECE (Elemento Crítico de Segurança/Ambiental).'
+        }
+      }
+    ]
   }
 ];
 
@@ -635,6 +674,126 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
     explanation: {
       en: "Enrich includes technical data completion, such as linking SECE objects to their Performance Standards via Process Codes.",
       pt: "Enriquecer inclui a conclusão de dados técnicos, como vincular objetos SECE aos seus Padrões de Desempenho via Códigos de Processo."
+    }
+  },
+  // FCA Advanced Questions
+  {
+    id: 22,
+    category: 'FCA',
+    question: {
+      en: "According to ISO 14224 taxonomy, at which level does the assessment of maintainable items typically begin?",
+      pt: "De acordo com a taxonomia ISO 14224, em qual nível a avaliação de itens manteníveis normalmente começa?"
+    },
+    options: {
+      en: ["Level 2 - Plant", "Level 4 - Subunit", "Level 6 - Equipment Unit", "Level 8 - Component"],
+      pt: ["Nível 2 - Planta", "Nível 4 - Subunidade", "Nível 6 - Unidade de Equipamento", "Nível 8 - Componente"]
+    },
+    correctAnswer: 2,
+    explanation: {
+      en: "The assessment begins at the Equipment Unit (Level 6) and cascades down to the Component item (Level 8).",
+      pt: "A avaliação começa na Unidade de Equipamento (Nível 6) e desce até o item de Componente (Nível 8)."
+    }
+  },
+  {
+    id: 23,
+    category: 'FCA',
+    question: {
+      en: "When establishing the Risk Score for a function, four categories are evaluated (Safety, Environment, Production, Business). How is the final Function Risk Score determined?",
+      pt: "Ao estabelecer a Pontuação de Risco para uma função, quatro categorias são avaliadas (Segurança, Meio Ambiente, Produção, Negócios). Como é determinada a Pontuação de Risco da Função final?"
+    },
+    options: {
+      en: ["By taking the average of the four scores", "By taking the lowest score to be conservative", "By summing all the scores together", "By selecting the highest score among the four categories"],
+      pt: ["Tirando a média das quatro pontuações", "Pegando a pontuação mais baixa para ser conservador", "Somando todas as pontuações", "Selecionando a pontuação mais alta entre as quatro categorias"]
+    },
+    correctAnswer: 3,
+    explanation: {
+      en: "The category that sets the function Risk Score is always the highest of the four, ensuring the worst-case scenario is addressed.",
+      pt: "A categoria que define a Pontuação de Risco da função é sempre a mais alta das quatro, garantindo que o pior cenário seja abordado."
+    }
+  },
+  {
+    id: 24,
+    category: 'FCA',
+    question: {
+      en: "What maintenance strategy is typically recommended for items that receive a 'LOW Risk' (Score 1-3) rating in the FCA?",
+      pt: "Qual estratégia de manutenção é tipicamente recomendada para itens que recebem uma classificação de 'Risco BAIXO' (Pontuação 1-3) no FCA?"
+    },
+    options: {
+      en: ["Preventive Maintenance every 6 months", "Condition-based monitoring", "Run to Failure", "Immediate replacement"],
+      pt: ["Manutenção Preventiva a cada 6 meses", "Monitoramento baseado na condição", "Operar até Falhar (Run to Failure)", "Substituição imediata"]
+    },
+    correctAnswer: 2,
+    explanation: {
+      en: "Low Risk items are typically allowed to 'Run to Failure', meaning no proactive maintenance is scheduled.",
+      pt: "Itens de Baixo Risco geralmente podem 'Operar até Falhar', o que significa que nenhuma manutenção proativa é programada."
+    }
+  },
+  {
+    id: 25,
+    category: 'FCA',
+    question: {
+      en: "If a failure's severity score is 'Minor Impact', what will the Object Type designation be, regardless of its likelihood?",
+      pt: "Se a pontuação de severidade de uma falha for 'Impacto Menor', qual será a designação do Tipo de Objeto, independentemente de sua probabilidade?"
+    },
+    options: {
+      en: ["PCE (Production Critical)", "NCE (Non-Critical Element)", "BCE (Business Critical)", "SECE"],
+      pt: ["PCE (Crítico de Produção)", "NCE (Elemento Não Crítico)", "BCE (Crítico de Negócios)", "SECE"]
+    },
+    correctAnswer: 1,
+    explanation: {
+      en: "Any element with a highest severity score of 'Slight' or 'Minor' is classified as NCE (Non-Critical Element) regardless of how likely it is to occur.",
+      pt: "Qualquer elemento com uma pontuação de severidade mais alta de 'Leve' ou 'Menor' é classificado como NCE (Elemento Não Crítico), independentemente da probabilidade de ocorrência."
+    }
+  },
+  {
+    id: 26,
+    category: 'FCA',
+    question: {
+      en: "SCENARIO: A Pressure Safety Valve (PSV) is found on a purge line. According to standard FCA simplifying rules, what severity ratings should be assigned to it?",
+      pt: "CENÁRIO: Uma Válvula de Segurança de Pressão (PSV) é encontrada em uma linha de purga. De acordo com as regras de simplificação do FCA, quais classificações de severidade devem ser atribuídas a ela?"
+    },
+    options: {
+      en: ["Massive Impact for Production", "Slight rating for Production and Business", "SECE mandatory rating", "Moderate for Safety only"],
+      pt: ["Impacto Massivo para Produção", "Classificação 'Leve' para Produção e Negócios", "Classificação obrigatória SECE", "Moderado apenas para Segurança"]
+    },
+    correctAnswer: 1,
+    explanation: {
+      en: "Standard simplifying rule: PSVs on purge lines receive Production and Business severity ratings of 'Slight'.",
+      pt: "Regra de simplificação padrão: PSVs em linhas de purga recebem classificações de severidade de Produção e Negócios como 'Leve'."
+    }
+  },
+  {
+    id: 27,
+    category: 'FCA',
+    question: {
+      en: "Are pipelines assessed during the standard Function Criticality Assessment (FCA) process?",
+      pt: "As tubulações (pipelines) são avaliadas durante o processo padrão de Avaliação de Criticidade Funcional (FCA)?"
+    },
+    options: {
+      en: ["Yes, they are considered Level 6 equipment", "Yes, but only if they carry gas", "No, they are covered by the Risk Based Inspection (RBI) process", "No, because they are NCE"],
+      pt: ["Sim, são consideradas equipamentos de Nível 6", "Sim, mas apenas se transportarem gás", "Não, são cobertas pelo processo de Inspeção Baseada em Risco (RBI)", "Não, porque são NCE"]
+    },
+    correctAnswer: 2,
+    explanation: {
+      en: "Pipelines are excluded from FCA boundaries because they are addressed by the Risk Based Inspection (RBI) carried out by the Integrity Management team.",
+      pt: "As tubulações estão excluídas dos limites do FCA porque são tratadas pela Inspeção Baseada em Risco (RBI) realizada pela equipe de Gestão de Integridade."
+    }
+  },
+  {
+    id: 28,
+    category: 'FCA',
+    question: {
+      en: "If an electric motor drives a pump that is classified as SECE (Safety/Environmental Critical), does the motor automatically receive the same SECE classification?",
+      pt: "Se um motor elétrico aciona uma bomba que é classificada como SECE (Crítica de Segurança/Ambiental), o motor recebe automaticamente a mesma classificação SECE?"
+    },
+    options: {
+      en: ["Yes, the entire skid is always SECE", "No, motors that drive SECE equipment do not necessarily receive the SECE classification", "Yes, but only if the motor is above 500kW", "No, motors are never assessed in FCA"],
+      pt: ["Sim, o skid inteiro é sempre SECE", "Não, motores que acionam equipamentos SECE não recebem necessariamente a classificação SECE", "Sim, mas apenas se o motor for superior a 500kW", "Não, motores nunca são avaliados no FCA"]
+    },
+    correctAnswer: 1,
+    explanation: {
+      en: "According to simplifying rules, motors driving equipment classified as SECE (due to loss of containment) shall not receive the SECE classification themselves.",
+      pt: "De acordo com as regras de simplificação, motores que acionam equipamentos classificados como SECE (devido à perda de contenção) não devem receber a classificação SECE."
     }
   }
 ];
