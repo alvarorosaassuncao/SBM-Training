@@ -25,7 +25,7 @@ export type PMStep = {
   targetElement?: string;
 };
 
-export type ModuleCategory = 'IFS' | 'CR' | 'E3 Business Rules';
+export type ModuleCategory = 'IFS' | 'CR' | 'E3 Business Rules' | 'FCA';
 
 export interface ModuleStudy {
   category: ModuleCategory;
