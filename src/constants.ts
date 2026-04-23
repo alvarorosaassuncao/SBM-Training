@@ -294,6 +294,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
   {
     id: 1,
     category: 'IFS',
+    image: 'assets/1.Generate PM action from Work Task Template.png',
     question: { 
       en: "SCENARIO: You are in the 'Service and Maintenance' navigator. Which specific screen should you access to find the task template for a Firewater Pump audit?",
       pt: "CENÁRIO: Você está no navegador 'Service and Maintenance'. Qual tela específica você deve acessar para encontrar o modelo de tarefa para uma auditoria de Bomba de Incêndio?"
@@ -311,6 +312,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
   {
     id: 2,
     category: 'IFS',
+    image: 'assets/2 Click on the tool strip item Search..png',
     question: { 
       en: "When searching for a specific task in IFS, what happens if you enter the Task ID but the Status is 'Preliminary'?",
       pt: "Ao procurar uma tarefa específica no IFS, o que acontece se você inserir o ID da Tarefa, mas o Status for 'Preliminar'?"
