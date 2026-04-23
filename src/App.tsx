@@ -387,7 +387,7 @@ function WelcomeView({ lang, onSelectModule, t }: { lang: Language, onSelectModu
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
         {/* Module 1: IFS Flow */}
         <div 
           onClick={() => onSelectModule('IFS')}
@@ -458,6 +458,32 @@ function WelcomeView({ lang, onSelectModule, t }: { lang: Language, onSelectModu
                 {lang === 'en' 
                   ? 'Optimization pillars: Eliminate, Elevate, Enrich. Standards for reliability releases.' 
                   : 'Pilares de otimização: Eliminar, Elevar, Enriquecer. Padrões para liberações de confiabilidade.'}
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 pt-8 border-t border-slate-50 flex items-center gap-2 text-sbm-orange font-black text-xs uppercase tracking-widest">
+            {lang === 'en' ? 'Start Study' : 'Iniciar Estudo'} <ArrowRight size={16} />
+          </div>
+        </div>
+
+        {/* Module 4: FCA */}
+        <div 
+          onClick={() => onSelectModule('FCA')}
+          className="bg-white p-10 rounded-[48px] shadow-xl border-x-4 border-t-4 border-b-12 border-slate-100 flex flex-col justify-between group hover:border-sbm-orange transition-all cursor-pointer hover:-translate-y-2"
+        >
+          <div className="space-y-8">
+            <div className="flex justify-between items-start">
+               <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-3xl flex items-center justify-center shadow-xl -rotate-3 group-hover:rotate-0 transition-transform">
+                 <ShieldAlert size={32} />
+               </div>
+               <span className="bg-blue-50/50 px-4 py-1 rounded-full text-[9px] font-black text-blue-500 border border-blue-100 uppercase">Module 04</span>
+            </div>
+            <div className="space-y-3">
+              <h3 className="text-3xl font-black text-sbm-dark-grey tracking-tight leading-none">{lang === 'en' ? 'FCA & Criticality' : 'FCA e Criticidade'}</h3>
+              <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                {lang === 'en' 
+                  ? 'Functional Criticality Assessment methodology, Severity matrices, and ISO 14224 Taxonomic levels.' 
+                  : 'Metodologia de Avaliação de Criticidade Funcional, matrizes de Severidade e níveis Taxonômicos ISO 14224.'}
               </p>
             </div>
           </div>
