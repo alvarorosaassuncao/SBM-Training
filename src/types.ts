@@ -52,9 +52,16 @@ export interface QuizQuestion {
   explanation: LocalizedString;
 }
 
+
 export interface StudyCard {
   id: number;
   title: LocalizedString;
   description: LocalizedString;
   image: string;
+}
+
+export interface CrVideoChapter {
+  title: LocalizedString;
+  timestamp: string; // "00:00" format
+  seconds: number;
 }

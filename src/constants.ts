@@ -1,4 +1,4 @@
-import { CRTType, CRLType, PMStep, QuizQuestion, ModuleStudy, StudyCard } from './types';
+import { CRTType, CRLType, PMStep, QuizQuestion, ModuleStudy, StudyCard, CrVideoChapter } from './types';
 
 /**
  * MODULE STUDY CONTENT
@@ -899,5 +899,30 @@ export const PM_ACTION_CARDS: StudyCard[] = [
       pt: 'Vincule o ID do Objeto de Equipamento específico para garantir que a Ação de PM seja aplicada ao ativo correto.'
     },
     image: 'assets/11 Click on the data field Object ID. It refers to an identity for the equipment object. Click on the list.png'
+  }
+];
+
+export const CR_VIDEO_ID = "CQr7HhaSRkw";
+
+export const CR_VIDEO_CHAPTERS: CrVideoChapter[] = [
+  {
+    title: { en: "Introduction to Change Requests", pt: "Introdução aos Pedidos de Mudança" },
+    timestamp: "00:00",
+    seconds: 0
+  },
+  {
+    title: { en: "CRT Matrix - Technical Strategy", pt: "Matriz CRT - Estratégia Técnica" },
+    timestamp: "01:20",
+    seconds: 80
+  },
+  {
+    title: { en: "CRL Hierarchy & Severities", pt: "Hierarquia CRL e Severidades" },
+    timestamp: "02:45",
+    seconds: 165
+  },
+  {
+    title: { en: "Technical Approval Flow", pt: "Fluxo de Aprovação Técnica" },
+    timestamp: "04:10",
+    seconds: 250
   }
 ];

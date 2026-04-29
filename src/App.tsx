@@ -27,11 +27,14 @@ import {
   User,
   Mail,
   Download,
-  Trophy
+  Trophy,
+  Video,
+  Play,
+  Clock
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import { MODULES_STUDY, CRT_DATA, CRL_DATA, PM_ACTION_STEPS, TRAINING_QUIZ, PM_ACTION_CARDS } from './constants';
+import { MODULES_STUDY, CRT_DATA, CRL_DATA, PM_ACTION_STEPS, TRAINING_QUIZ, PM_ACTION_CARDS, CR_VIDEO_ID, CR_VIDEO_CHAPTERS } from './constants';
 
 // --- ROBUST ASSET HELPERS ---
 const getAssetUrl = (path: string): string => {
@@ -79,7 +82,7 @@ function SbmLogo({ className = "h-10 w-auto" }: { className?: string }) {
 // -----------------------------
 import { PMStep, QuizQuestion, ModuleCategory, ModuleStudy } from './types';
 
-type Tab = 'welcome' | 'study' | 'quiz' | 'registration' | 'pm-action';
+type Tab = 'welcome' | 'study' | 'quiz' | 'registration' | 'pm-action' | 'cr-walkthrough';
 type Language = 'en' | 'pt';
 
 interface UserData {
@@ -140,6 +143,7 @@ export default function App() {
             { id: 'welcome', label: lang === 'en' ? 'Module Overview' : 'Visão dos Módulos', icon: BookOpen },
             { id: 'quiz', label: lang === 'en' ? 'Final Quiz' : 'Quiz Final', icon: Trophy },
             { id: 'pm-action', label: 'PM Action', icon: Settings },
+            { id: 'cr-walkthrough', label: 'Change Requests', icon: Video },
           ].map((item) => (
             <button
               key={item.id}
@@ -196,6 +200,7 @@ export default function App() {
               <WelcomeView 
                 lang={lang} 
                 onSelectModule={handleSelectModule} 
+                onWatchVideo={() => setActiveTab('cr-walkthrough')}
                 t={t}
               />
             )}
@@ -280,8 +285,11 @@ export default function App() {
                   </div>
                 </div>
             )}
-            {activeTab === 'pm-action' && (
+            { activeTab === 'pm-action' && (
               <PmActionView lang={lang} t={t} />
+            )}
+            {activeTab === 'cr-walkthrough' && (
+              <CrVideoView lang={lang} t={t} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -372,7 +380,7 @@ function Lock({ size }: { size: number }) {
   );
 }
 
-function WelcomeView({ lang, onSelectModule, t }: { lang: Language, onSelectModule: (cat: ModuleCategory) => void, t: any }) {
+function WelcomeView({ lang, onSelectModule, onWatchVideo, t }: { lang: Language, onSelectModule: (cat: ModuleCategory) => void, onWatchVideo: () => void, t: any }) {
   return (
     <div className="space-y-12 pb-20">
       <header className="space-y-4">
@@ -493,8 +501,19 @@ function WelcomeView({ lang, onSelectModule, t }: { lang: Language, onSelectModu
               </p>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-slate-50 flex items-center gap-2 text-sbm-orange font-black text-xs uppercase tracking-widest">
-            {lang === 'en' ? 'Start Study' : 'Iniciar Estudo'} <ArrowRight size={16} />
+          <div className="mt-8 pt-8 border-t border-slate-50 flex items-center justify-between group-hover:border-sbm-orange transition-colors">
+            <div className="flex items-center gap-2 text-sbm-orange font-black text-xs uppercase tracking-widest">
+              {lang === 'en' ? 'Start Study' : 'Iniciar Estudo'} <ArrowRight size={16} />
+            </div>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                onWatchVideo();
+              }}
+              className="px-3 py-1 bg-white text-[10px] font-black uppercase text-slate-400 border border-slate-100 rounded-lg hover:border-sbm-orange hover:text-sbm-orange transition-all flex items-center gap-1"
+            >
+              <Video size={12} /> Video
+            </button>
           </div>
         </div>
       </div>
@@ -1231,5 +1250,115 @@ function PmActionView({ lang, t }: { lang: Language, t: any }) {
   );
 }
 
-// Keep original file end if any
+function CrVideoView({ lang, t }: { lang: Language, t: any }) {
+  const [isReady, setIsReady] = useState(false);
+
+  const seekTo = (seconds: number) => {
+    const iframe = document.getElementById('cr-youtube-player') as HTMLIFrameElement;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(JSON.stringify({
+        event: 'command',
+        func: 'seekTo',
+        args: [seconds, true]
+      }), '*');
+      iframe.contentWindow.postMessage(JSON.stringify({
+        event: 'command',
+        func: 'playVideo',
+        args: []
+      }), '*');
+    }
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto space-y-10 pb-20">
+      <header className="space-y-6">
+        <div className="flex items-center gap-4">
+           <div className="bg-white p-3 rounded-2xl inline-block shadow-xl border border-slate-50">
+             <Video className="h-6 w-6 text-sbm-orange" />
+           </div>
+           <div className="px-4 py-1 rounded-full bg-sbm-orange/10 text-sbm-orange text-[10px] font-black uppercase tracking-widest italic">Video Simulation</div>
+        </div>
+        <div className="space-y-2">
+          <h1 className="text-5xl font-black text-sbm-dark-grey tracking-tighter leading-[1.1]">
+            {lang === 'en' ? 'CR Flow Walkthrough' : 'Demonstração de Fluxo de CR'}
+          </h1>
+          <p className="text-xl text-slate-400 font-medium max-w-xl leading-relaxed">
+            {lang === 'en' 
+              ? 'Watch the system demo and navigate through chapters to master the Change Request lifecycle.' 
+              : 'Assista à demonstração do sistema e navegue pelos capítulos para dominar o ciclo de vida do Pedido de Mudança.'}
+          </p>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white rounded-[40px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100 group">
+             <div className="aspect-video relative bg-slate-900">
+                {!isReady && (
+                   <div className="absolute inset-0 flex items-center justify-center text-white">
+                      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sbm-orange"></div>
+                   </div>
+                )}
+                <iframe
+                  id="cr-youtube-player"
+                  src={`https://www.youtube.com/embed/${CR_VIDEO_ID}?enablejsapi=1&rel=0&modestbranding=1`}
+                  title="SBM Training Video"
+                  onLoad={() => setIsReady(true)}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+             </div>
+          </div>
+          
+          <div className="p-8 bg-blue-50/50 rounded-[32px] border border-blue-100 flex gap-6 items-start">
+            <div className="bg-blue-500 text-white p-3 rounded-2xl shadow-sm">
+              <ShieldCheck size={24} />
+            </div>
+            <div className="space-y-1">
+              <p className="text-sm font-black text-blue-600 uppercase tracking-widest">{lang === 'en' ? 'Technical Standard' : 'Norma Técnica'}</p>
+              <p className="text-slate-600 font-medium leading-relaxed italic">
+                {lang === 'en' 
+                  ? 'This video demonstrates official procedure INS.471.6 and CRT requirements for IFS execution.'
+                  : 'Este vídeo demonstra o procedimento oficial INS.471.6 e os requisitos de CRT para execução no IFS.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="bg-white p-8 rounded-[40px] shadow-2xl border border-slate-50 space-y-8">
+            <div>
+              <h3 className="text-xl font-black text-sbm-dark-grey flex items-center gap-2">
+                <Clock className="text-sbm-orange" size={20} />
+                {lang === 'en' ? 'Chapters' : 'Capítulos'}
+              </h3>
+              <p className="text-xs font-medium text-slate-400 mt-1 uppercase tracking-tighter">Click to jump to a specific part</p>
+            </div>
+
+            <div className="space-y-3">
+              {CR_VIDEO_CHAPTERS.map((chapter, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => seekTo(chapter.seconds)}
+                  className="w-full group text-left p-4 rounded-2xl hover:bg-slate-50 border-2 border-transparent hover:border-slate-100 transition-all flex items-center gap-4"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-black text-slate-500 group-hover:bg-sbm-orange group-hover:text-white transition-colors">
+                    {chapter.timestamp}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-black text-sbm-dark-grey group-hover:text-sbm-orange transition-colors">
+                      {t(chapter.title)}
+                    </p>
+                  </div>
+                  <Play size={14} className="text-slate-200 group-hover:text-sbm-orange" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
