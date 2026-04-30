@@ -7,7 +7,7 @@ export const MODULES_STUDY: ModuleStudy[] = [
   {
     category: 'IFS',
     title: { en: 'IFS CMMS: Execution & Engineering', pt: 'CMMS IFS: Execução e Engenharia' },
-    pdfUrl: 'assets/docs/Treinamento de PM Action - Create or update PM Action.pdf',
+    pdfUrl: 'assets/docs/Treinamento_PM_Action.pdf',
     intro: { 
       en: 'Advanced technical guide for IFS CMMS life-cycle, covering WTT, PM Action engineering, and operational readiness.',
       pt: 'Guia técnico avançado para o ciclo de vida do CMMS IFS, cobrindo WTT, engenharia de Ação de PM e prontidão operacional.'
@@ -46,7 +46,7 @@ export const MODULES_STUDY: ModuleStudy[] = [
   {
     category: 'CR',
     title: { en: 'CR & Lifecycle Management (INS.471.6)', pt: 'Gestão de CR e Ciclo de Vida (INS.471.6)' },
-    pdfUrl: 'assets/docs/INS.471.6.ENG - Manage Change Request in CMMS - Approval Flow 2.pdf',
+    pdfUrl: 'assets/docs/Manage_Change_Request.pdf',
     intro: {
       en: 'Official SBM Standard for managing CMMS change requests, technical review boundaries, and approval flows.',
       pt: 'Padrão Oficial SBM para gerenciar pedidos de mudança no CMMS, limites de revisão técnica e fluxos de aprovação.'
@@ -85,45 +85,62 @@ export const MODULES_STUDY: ModuleStudy[] = [
   {
     category: 'E3 Business Rules',
     title: { en: 'E3: Program for Maintenance Optimization', pt: 'E3: Programa de Otimização de Manutenção' },
-    pdfUrl: 'assets/docs/E3 2026 - Business Rules 2.pdf',
+    pdfUrl: 'assets/docs/E3_Business_Rules.pdf',
     intro: {
       en: 'Strategic standards for the E3 Project (Eliminate, Elevate, Enrich), reliability releases, and CMMS cleaning rules.',
       pt: 'Padrões estratégicos para o Projeto E3 (Eliminar, Elevar, Enriquecer), liberações de confiabilidade e regras de limpeza do CMMS.'
     },
     sections: [
       {
-        title: { en: 'The Optimization Cycle: E.E.E.', pt: 'O Ciclo de Otimização: E.E.E.' },
+        title: { en: '1. What an engineer must know about Business Rules', pt: '1. O que um engenheiro precisa saber sobre Business Rules' },
         content: {
-          en: '1. ELIMINATE: Pruning low-value tasks (cleaning, operational procedures, non-technical routines). 2. ELEVATE: Transitioning from fixed calendars to predictive condition monitoring. 3. ENRICH: Mandatory data cleansing, ensuring every Object has a valid Technical Specification and failure mode mapped in the CMMS.',
-          pt: '1. ELIMINAR: Podar tarefas de baixo valor (limpeza, procedimentos operacionais, rotinas não técnicas). 2. ELEVAR: Transição de calendários fixos para monitoramento de condição preditivo. 3. ENRIQUECER: Limpeza de dados obrigatória, garantindo que cada Objeto tenha uma Especificação Técnica válida e modo de falha mapeado no CMMS.'
+          en: 'W4W – MAINTENANCE STRATEGY OPTIMIZATION PROGRAM\n\nSCOPE OF WORK\nThe workflow below defines the steps to be carried out during E3 Program. The program consists of guarantees: The right routine in right asset.\nThe PM action attributes priority, interval and Leadtime. The workflow above specifies the steps for analyzing the item class, which starts with the review of the Strategy, then Functional Object features and up to the adjustments in the PM Actions.\n\nPURPOSE\nThis document aims to describe concepts, criteria, and standards for E3 Project. The main objective of E3 is to update maintenance plans to achieve optimized and standardized activities according with EMS based on 3 pillars:\n• Eliminate – remove non-value preventive tasks\n• Elevate – Check whether continuous monitoring already exists (ASI) and can be taken as credit for eliminating preventive tasks\n• Enrich – Verify and update the attributes: Item Class, Category, Object Type and Criticality, Process Code, Object creation, PM Performed Date Based, PM Interval, PM Leadtime, PM Action, PM Priority, PM Execution time (WTT), Rounds, Maintenance Organization, PM Operational Status, PM Resource, PM Status, and PM Creation/Status Review.\n\nWhat is NOT part of Enrich: PM Third Party Required flag, PM Shutdown Required flag, and PM WOs parameter updates (Priority, Latest Finish, Maintenance Org).\n\nABBREVIATIONS\n• 3YP - Three Years Plan\n• CMMS - Computerized Maintenance Management System\n• EDMS - Electronic Document Management System\n• FPSO - Floating Production Storage & Offloading\n• IFS - Industrial and Financial Systems\n• IWP - Integrated Work-Package\n• KPI - Key Performance Indicator\n• PM - Preventive Maintenance\n• POB - People Onboard\n• WTT - Work Task Template\n• ASI – Asset Surveillance Intelligence',
+          pt: 'W4W – PROGRAMA DE OTIMIZAÇÃO DA ESTRATÉGIA DE MANUTENÇÃO\n\nESCOPO DE TRABALHO\nO fluxo de trabalho abaixo define os passos a serem realizados durante o Programa E3. O programa consiste em garantias: A rotina certa no ativo certo.\nOs atributos da ação de PM como prioridade, intervalo e Leadtime. O fluxo de trabalho especifica os passos para analisar a classe do item, que começa com a revisão da Estratégia, passando pelas características do Objeto Funcional até os ajustes nas Ações de PM.\n\nPROPÓSITO\nEste documento visa descrever conceitos, critérios e padrões para o Projeto E3. O principal objetivo do E3 é atualizar os planos de manutenção para alcançar atividades otimizadas e padronizadas de acordo com o EMS baseado em 3 pilares:\n• Eliminar – remover tarefas preventivas sem valor agregado\n• Elevar – Verificar se o monitoramento contínuo já existe (ASI) e pode ser usado como crédito para eliminar tarefas preventivas\n• Enriquecer – Verificar e atualizar os atributos: Classe do Item, Categoria, Tipo de Objeto e Criticidade, Código de Processo, Criação de Objeto, PM baseada em Data de Execução, Intervalo de PM, Leadtime, Ação de PM, Prioridade, Tempo de Execução (WTT), Rondas, Organização de Manutenção, Status Operacional de PM, Recurso, Status e Revisão de Criação/Status de PM.\n\nO que NÃO faz parte do Enriquecer: Flag de Exigência de Terceiros, Flag de Exigência de Parada (Shutdown), e atualizações de parâmetros de WO (Prioridade, Latest Finish, Organização de Manutenção).\n\nABREVIAÇÕES\n• 3YP - Plano de Três Anos\n• CMMS - Sistema de Gestão de Manutenção Computadorizado\n• EDMS - Sistema de Gestão de Documentos Eletrônicos\n• FPSO - Unidade Flutuante de Produção, Armazenamento e Transferência\n• IFS - Sistemas Industriais e Financeiros\n• IWP - Pacote de Trabalho Integrado\n• KPI - Indicador Chave de Desempenho\n• PM - Manutenção Preventiva\n• POB - Pessoas a Bordo\n• WTT - Modelo de Tarefa de Trabalho\n• ASI – Inteligência de Vigilância de Ativos'
         },
-        image: 'screenshot_for_page_4.png'
+        image: 'assets/busines rules 1.png'
       },
       {
-        title: { en: 'Strict Inclusion Criteria', pt: 'Critérios de Inclusão Rigorosos' },
+        title: { en: '2. Types of Change Requests', pt: '2. Quais os tipos de Change requests' },
         content: {
-          en: 'What stays in CMMS? Tasks that prevent technical failure, preserve asset integrity, or are required for safety barriers (SECE). What stays OUT? Day-by-day housekeeping, operational settings, training logs, and checklists that do not result in a direct maintenance action record.',
-          pt: 'O que fica no CMMS? Tarefas que previnem falhas técnicas, preservam a integridade do ativo ou são exigidas para barreiras de segurança (SECE). O que fica FORA? Limpeza diária, configurações operacionais, logs de treinamento e checklists que não resultam em um registro de ação de manutenção direta.'
+          en: 'Change Requests (CR) are required for any Strategy changes (e.g., "E3 Strategy review") or PM Action modifications. A CR must be fully approved by the Reliability Lead and Manager before a "Change Order" (CO) is generated. Changes are categorized by impact, such as CRT1 (Strategy Update) or CRT3 (Attribute Revision). If a PM is obsolete, the WO must be cancelled following the approved CR.',
+          pt: 'Change Requests (CR) são necessários para qualquer alteração de Estratégia (ex: "E3 Strategy review") ou modificações de Ação de PM. Um CR deve ser totalmente aprovado pelo Líder e Gerente de Confiabilidade antes que uma "Change Order" (CO) seja gerada. As mudanças são categorizadas por impacto, como CRT1 (Atualização de Estratégia) ou CRT3 (Revisão de Atributo). Se uma PM for obsoleta, a WO deve ser cancelada seguindo o CR aprovado.'
         },
-        image: 'screenshot_for_page_5.png'
+        image: 'assets/busines rules 2.png'
       },
       {
-        title: { en: 'Reliability Release Indexes', pt: 'Índices de Reliability Release' },
+        title: { en: '3. Criticality Categories', pt: '3. Quais as categorias de criticidade' },
         content: {
-          en: 'A Reliability Release (RR) is the final technical output. It measures the "Optimization Index" (Delta of PM weight) and "Compliance Index" (Alignment with SBM Global Strategy). Any gaps identified (missing special tools, spare parts stock-outs) must be flagged as "Operational Gaps" in the FCA model.',
-          pt: 'Um Reliability Release (RR) é a saída técnica final. Ele mede o "Índice de Otimização" (Delta do peso de PM) e o "Índice de Conformidade" (Alinhamento com a Estratégia Global SBM). Quaisquer lacunas identificadas (ferramentas especiais ausentes, falta de estoque de peças de reposição) devem ser sinalizadas como "Lacunas Operacionais" no modelo FCA.'
+          en: 'Criticality levels (Object Type and Criticality) are assessed via FCA (Functional Criticality Assessment). Levels are typically defined as Low (L), Medium (M), and High (H). When the criticality level is indicated as "Low" (or empty in the WTT), it means the strategy does not apply, and it should be treated as a "Run to Failure" device. High criticality often involves Safety and Environmental Critical Elements (SECE).',
+          pt: 'Os níveis de criticidade (Tipo de Objeto e Criticidade) são avaliados via FCA (Avaliação de Criticidade Funcional). Os níveis são tipicamente definidos como Baixo (L), Médio (M) e Alto (H). Quando o nível é "Baixo" (ou vazio no WTT), significa que a estratégia não se aplica, e o equipamento deve ser tratado como "Operar até Falhar" (Run to Failure). Alta criticidade geralmente envolve Elementos Críticos de Segurança e Meio Ambiente (SECE).'
         },
-        image: 'screenshot_for_page_10.png'
+        image: 'assets/businees 3.png'
       },
       {
-        title: { en: 'SECE & Performance Management', pt: 'SECE e Gestão de Desempenho' },
+        title: { en: '4. What is the Lead Time', pt: '4. O que é o Lead Time' },
         content: {
-          en: 'Safety and Environmental Critical Elements (SECE) are the highest priority. Every SECE object MUST have a Performance Standard (PS) assigned via the Process Code. The E3 program verifies that for every PS, there is a corresponding PM Action that validates the primary function of the barrier.',
-          pt: 'Elementos Críticos de Segurança e Ambiente (SECE) são a prioridade mais alta. Cada objeto SECE DEVE ter um Padrão de Desempenho (PS) atribuído através do Código de Processo. O programa E3 verifica se, para cada PS, existe uma Ação de PM correspondente que valida a função primária da barreira.'
+          en: 'Lead time is the definition of how long before the planned execution date the Work Order (WO) will be generated. It is critical for planning resources, buying required spare parts, and bringing specific tools offshore. The standard minimum Lead Time in IFS is 90 days. For example, an 8000 hours running interval demands a 180-day real lead time.',
+          pt: 'O Lead time é a definição de quanto tempo antes da data de execução planejada a Ordem de Trabalho (WO) será gerada. É crítico para planejar recursos, comprar peças de reposição necessárias e trazer ferramentas específicas para offshore. O Lead Time mínimo padrão no IFS é de 90 dias. Por exemplo, um intervalo de 8000 horas exige um lead time real de 180 dias.'
         },
-        image: 'screenshot_for_page_23.png'
+        image: 'assets/businnes rules 4.png'
+      },
+      {
+        title: { en: '5. How to create a failure mode', pt: '5. Como criar um modo de falha' },
+        content: {
+          en: 'Creating a failure mode requires mapping the functional failure to a specific component. In the CMMS, the Justification field must define the rationale for the maintenance activity, referencing reliability studies (RCM, RBI, FCA), historical failure data, or OEM directives. Correct mapping ensures that every task explicitly mitigates an identified failure mode.',
+          pt: 'Criar um modo de falha requer mapear a falha funcional para um componente específico. No CMMS, o campo de Justificativa deve definir a base lógica para a atividade de manutenção, referenciando estudos de confiabilidade (RCM, RBI, FCA), dados históricos de falhas ou diretrizes do fabricante (OEM). O mapeamento correto garante que cada tarefa mitigue explicitamente um modo de falha identificado.'
+        },
+        image: 'assets/business 5.png'
       }
-    ]
+    ],
+    presentation: {
+      title: { en: 'E3 Maintenance Blueprint', pt: 'E3 Maintenance Blueprint' },
+      description: { 
+        en: 'Comprehensive structural presentation of the E3 framework and methodologies.', 
+        pt: 'Apresentação estrutural abrangente do framework E3 e suas metodologias.' 
+      },
+      fileUrl: 'assets/E3_Maintenance_Blueprint.pdf',
+      coverImage: 'assets/busines rules 1.png'
+    }
   },
   {
     category: 'FCA',
@@ -504,74 +521,114 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
   {
     id: 13,
     category: 'E3 Business Rules',
-    image: 'screenshot_for_page_8.png',
     question: {
-      en: "In the WTT level, if all maintenance interval fields are left blank for all criticality levels, what does it signify?",
-      pt: "No nível do WTT, se todos os campos de intervalo de manutenção forem deixados em branco para todos os níveis de criticidade, o que isso significa?"
+      en: 'What is the primary objective of the E3 Program according to the Business Rules?',
+      pt: 'Qual é o objetivo principal do Programa E3 de acordo com o Business Rules?'
     },
     options: {
-      en: ["The strategy is invalid", "The interval is interpretative based on standards described in 'Justification'", "It is a Run to Failure equipment", "The object doesn't need maintenance"],
-      pt: ["A estratégia é inválida", "O intervalo é interpretativo com base em normas descritas na 'Justificativa'", "É um equipamento Run to Failure", "O objeto não precisa de manutenção"]
+      en: [
+        'Eliminate, Elevate, Enrich to achieve optimized and standardized activities.',
+        'Execute, Engineer, Ensure to reduce OPEX costs by 50%.',
+        'Eliminate, Engineer, Execute to increase the number of PM actions.',
+        'Evaluate, Extract, Ensure to manage third-party vendors.'
+      ],
+      pt: [
+        'Eliminar, Elevar, Enriquecer para alcançar atividades otimizadas e padronizadas.',
+        'Executar, Engenheirar, Garantir para reduzir custos OPEX em 50%.',
+        'Eliminar, Engenheirar, Executar para aumentar o número de ações de PM.',
+        'Avaliar, Extrair, Garantir para gerenciar fornecedores terceirizados.'
+      ]
     },
-    correctAnswer: 1,
+    correctAnswer: 0,
     explanation: {
-      en: "Blank interval fields mean the interval is interpretative according to a standard, usually described in the 'Justification' field.",
-      pt: "Campos de intervalo em branco significam que o intervalo é interpretativo de acordo com uma norma, geralmente descrita no campo 'Justificativa'."
-    }
+      en: 'E3 stands for Eliminate, Elevate, Enrich. Its main objective is to update maintenance plans to achieve optimized and standardized activities according to the EMS.',
+      pt: 'E3 significa Eliminar, Elevar, Enriquecer. Seu objetivo principal é atualizar os planos de manutenção para alcançar atividades otimizadas e padronizadas de acordo com o EMS.'
+    },
+    image: 'assets/busines rules 1.png'
   },
   {
     id: 14,
     category: 'E3 Business Rules',
-    image: 'screenshot_for_page_10.png',
     question: {
-      en: "What is the primary purpose of the 'Reliability Release' document output from the E3 tool?",
-      pt: "Qual é o objetivo principal da saída do documento 'Reliability Release' da ferramenta E3?"
+      en: 'In the context of the E3 Business Rules, what does a criticality level of "Low" typically imply for a strategy?',
+      pt: 'No contexto do E3 Business Rules, o que um nível de criticidade "Baixo" tipicamente implica para uma estratégia?'
     },
     options: {
-      en: ["To authorize budget spending", "To highlight benefits, motivations, gaps, and compliance index for an Item Class", "To schedule the next maintenance work order", "To list the technicians' names"],
-      pt: ["Autorizar gastos orçamentários", "Destacar benefícios, motivações, lacunas e índice de conformidade para uma Classe de Item", "Agendar a próxima ordem de trabalho de manutenção", "Listar os nomes dos técnicos"]
+      en: [
+        'The PM must be executed weekly without fail.',
+        'The strategy does not apply and the object is treated as Run to Failure.',
+        'It requires immediate Technical Authority approval before execution.',
+        'It indicates a Safety and Environmental Critical Element (SECE).'
+      ],
+      pt: [
+        'A PM deve ser executada semanalmente sem falhas.',
+        'A estratégia não se aplica e o objeto é tratado como Operar até Falhar (Run to Failure).',
+        'Requer aprovação imediata da Autoridade Técnica antes da execução.',
+        'Indica um Elemento Crítico de Segurança e Meio Ambiente (SECE).'
+      ]
     },
     correctAnswer: 1,
     explanation: {
-      en: "The Reliability Release highlights benefits, motivations, gaps found in the analysis, and the compliance index (As Found x As Left).",
-      pt: "O Reliability Release destaca benefícios, motivações, lacunas encontradas na análise e o índice de conformidade (As Found x As Left)."
-    }
+      en: 'When the criticality level is "Low" (or empty), it generally means the formal preventive strategy does not apply and the component is "Run to Failure".',
+      pt: 'Quando o nível de criticidade é "Baixo" (ou vazio), geralmente significa que a estratégia preventiva formal não se aplica e o componente é "Operar até Falhar" (Run to Failure).'
+    },
+    image: 'assets/businees 3.png'
   },
   {
     id: 15,
     category: 'E3 Business Rules',
-    image: 'screenshot_for_page_12.png',
     question: {
-      en: "For objects classified as 'SECE' (Safety Barrier), which attribute is MANDATORY to indicate the Performance Standard?",
-      pt: "Para objetos classificados como 'SECE' (Barreira de Segurança), qual atributo é OBRIGATÓRIO para indicar o Performance Standard?"
+      en: 'What is the purpose of the Lead Time attribute in PM actions?',
+      pt: 'Qual é o propósito do atributo Lead Time nas ações de PM?'
     },
     options: {
-      en: ["Category Code", "Process Code", "Item Class", "Strategic Level"],
-      pt: ["Código de Categoria", "Código de Processo", "Classe de Item", "Nível Estratégico"]
+      en: [
+        'It defines the time required for the Reliability Lead to approve a CR.',
+        'It is the time before the planned execution date when the Work Order is generated.',
+        'It specifies the duration of the actual maintenance task execution.',
+        'It indicates how long an asset has been operating without failure.'
+      ],
+      pt: [
+        'Define o tempo necessário para o Líder de Confiabilidade aprovar um CR.',
+        'É o tempo antes da data de execução planejada em que a Ordem de Trabalho é gerada.',
+        'Especifica a duração da execução real da tarefa de manutenção.',
+        'Indica por quanto tempo um ativo está operando sem falhas.'
+      ]
     },
     correctAnswer: 1,
     explanation: {
-      en: "The Process Code is mandatory for all objects classified with Object Type 'SECE' to indicate its Performance Standard.",
-      pt: "O Código de Processo é obrigatório para todos os objetos classificados com o Tipo de Objeto 'SECE' para indicar seu Padrão de Desempenho."
-    }
+      en: 'Lead time defines how long before the execution date the Work Order is generated, allowing time for planning resources and materials.',
+      pt: 'O Lead time define quanto tempo antes da data de execução a Ordem de Trabalho é gerada, permitindo tempo para planejar recursos e materiais.'
+    },
+    image: 'assets/businnes rules 4.png'
   },
   {
     id: 16,
     category: 'E3 Business Rules',
-    image: 'screenshot_for_page_23.png',
     question: {
-      en: "Which of the following is a prerequisite for a PM Action to be classified as 'Eligible for Replacement'?",
-      pt: "Qual dos seguintes é um pré-requisito para uma Ação de PM ser classificada como 'Elegível para Substituição'?"
+      en: 'What is the correct sequence between a Change Request (CR) and a Change Order (CO)?',
+      pt: 'Qual é a sequência correta entre um Pedido de Mudança (CR) e uma Ordem de Mudança (CO)?'
     },
     options: {
-      en: ["Status must be Preliminary", "Performed Date Based must be 'No'", "Equal Lead Times are not required", "Different Object IDs"],
-      pt: ["O status deve ser Preliminar", "O Performed Date Based deve ser 'Não'", "Lead Times iguais não são necessários", "IDs de objeto diferentes"]
+      en: [
+        'A CO is generated first, followed by a CR for execution.',
+        'A CR must be fully approved before a CO is generated.',
+        'They are independent and can be created simultaneously.',
+        'A CR is only needed if the CO is rejected.'
+      ],
+      pt: [
+        'Uma CO é gerada primeiro, seguida por um CR para execução.',
+        'Um CR deve ser totalmente aprovado antes que uma CO seja gerada.',
+        'Eles são independentes e podem ser criados simultaneamente.',
+        'Um CR só é necessário se a CO for rejeitada.'
+      ]
     },
     correctAnswer: 1,
     explanation: {
-      en: "Eligible for Replacement requires: Performed Date Based 'No', PM Action Active, Same Object ID, and Equal Lead Times, among others.",
-      pt: "Elegível para Substituição requer: Performed Date Based 'Não', Ação PM Ativa, mesmo ID de Objeto e Lead Times iguais, entre outros."
-    }
+      en: 'A Change Request (CR) must be fully approved by the Reliability Lead and Manager before a Change Order (CO) is generated.',
+      pt: 'Um Change Request (CR) deve ser totalmente aprovado pelo Líder e Gerente de Confiabilidade antes que uma Change Order (CO) seja gerada.'
+    },
+    image: 'assets/busines rules 2.png'
   },
   {
     id: 17,
@@ -585,6 +642,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Nada, a WO ainda é válida", "Impede que a Engenharia de Confiabilidade calcule o MTBF com precisão", "O sistema os preenche automaticamente", "O equipamento é excluído"]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "Condition codes are critical for MTBF and reliability analysis within SBM Asset Integrity standards.",
       pt: "Os códigos de condição são críticos para a análise de MTBF e confiabilidade nos padrões de Integridade de Ativos da SBM."
@@ -602,6 +660,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Erro de digitação cosmético", "Otimização padrão", "Alto risco de perda de produção", "Ameaça de morte imediata"]
     },
     correctAnswer: 2,
+    image: 'assets/quiz_fca_matrix.png',
     explanation: {
       en: "CRL2 represents a 'High' severity level where there is a major risk of production loss if the change is not applied.",
       pt: "CRL2 representa um nível de severidade 'Alto', onde há um risco significativo de perda de produção se a mudança não for aplicada."
@@ -619,6 +678,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Teste de válvula de segurança de pressão", "Limpeza diária e lembretes administrativos", "Análise de vibração", "Rotina do gerador de emergência"]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_lifecycle.png',
     explanation: {
       en: "Non-technical routines like housekeeping and admin alerts are removed to keep the CMMS focused on technical integrity.",
       pt: "Rotinas não técnicas, como limpeza e alertas administrativos, são removidas para manter o CMMS focado na integridade técnica."
@@ -646,6 +706,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       ]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_lifecycle.png',
     explanation: {
       en: "The Elevate pillar seeks to align maintenance frequency with actual equipment risk and operational context using data/condition.",
       pt: "O pilar Elevar busca alinhar a frequência de manutenção com o risco real do equipamento e o contexto operacional usando dados/condição."
@@ -673,6 +734,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       ]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "Enrich includes technical data completion, such as linking SECE objects to their Performance Standards via Process Codes.",
       pt: "Enriquecer inclui a conclusão de dados técnicos, como vincular objetos SECE aos seus Padrões de Desempenho via Códigos de Processo."
@@ -691,6 +753,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Nível 2 - Planta", "Nível 4 - Subunidade", "Nível 6 - Unidade de Equipamento", "Nível 8 - Componente"]
     },
     correctAnswer: 2,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "The assessment begins at the Equipment Unit (Level 6) and cascades down to the Component item (Level 8).",
       pt: "A avaliação começa na Unidade de Equipamento (Nível 6) e desce até o item de Componente (Nível 8)."
@@ -708,6 +771,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Tirando a média das quatro pontuações", "Pegando a pontuação mais baixa para ser conservador", "Somando todas as pontuações", "Selecionando a pontuação mais alta entre as quatro categorias"]
     },
     correctAnswer: 3,
+    image: 'assets/quiz_fca_matrix.png',
     explanation: {
       en: "The category that sets the function Risk Score is always the highest of the four, ensuring the worst-case scenario is addressed.",
       pt: "A categoria que define a Pontuação de Risco da função é sempre a mais alta das quatro, garantindo que o pior cenário seja abordado."
@@ -725,6 +789,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Manutenção Preventiva a cada 6 meses", "Monitoramento baseado na condição", "Operar até Falhar (Run to Failure)", "Substituição imediata"]
     },
     correctAnswer: 2,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "Low Risk items are typically allowed to 'Run to Failure', meaning no proactive maintenance is scheduled.",
       pt: "Itens de Baixo Risco geralmente podem 'Operar até Falhar', o que significa que nenhuma manutenção proativa é programada."
@@ -742,6 +807,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["PCE (Crítico de Produção)", "NCE (Elemento Não Crítico)", "BCE (Crítico de Negócios)", "SECE"]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_fca_matrix.png',
     explanation: {
       en: "Any element with a highest severity score of 'Slight' or 'Minor' is classified as NCE (Non-Critical Element) regardless of how likely it is to occur.",
       pt: "Qualquer elemento com uma pontuação de severidade mais alta de 'Leve' ou 'Menor' é classificado como NCE (Elemento Não Crítico), independentemente da probabilidade de ocorrência."
@@ -759,6 +825,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Impacto Massivo para Produção", "Classificação 'Leve' para Produção e Negócios", "Classificação obrigatória SECE", "Moderado apenas para Segurança"]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_fca_matrix.png',
     explanation: {
       en: "Standard simplifying rule: PSVs on purge lines receive Production and Business severity ratings of 'Slight'.",
       pt: "Regra de simplificação padrão: PSVs em linhas de purga recebem classificações de severidade de Produção e Negócios como 'Leve'."
@@ -776,6 +843,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Sim, são consideradas equipamentos de Nível 6", "Sim, mas apenas se transportarem gás", "Não, são cobertas pelo processo de Inspeção Baseada em Risco (RBI)", "Não, porque são NCE"]
     },
     correctAnswer: 2,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "Pipelines are excluded from FCA boundaries because they are addressed by the Risk Based Inspection (RBI) carried out by the Integrity Management team.",
       pt: "As tubulações estão excluídas dos limites do FCA porque são tratadas pela Inspeção Baseada em Risco (RBI) realizada pela equipe de Gestão de Integridade."
@@ -793,6 +861,7 @@ export const TRAINING_QUIZ: QuizQuestion[] = [
       pt: ["Sim, o skid inteiro é sempre SECE", "Não, motores que acionam equipamentos SECE não recebem necessariamente a classificação SECE", "Sim, mas apenas se o motor for superior a 500kW", "Não, motores nunca são avaliados no FCA"]
     },
     correctAnswer: 1,
+    image: 'assets/quiz_reliability.png',
     explanation: {
       en: "According to simplifying rules, motors driving equipment classified as SECE (due to loss of containment) shall not receive the SECE classification themselves.",
       pt: "De acordo com as regras de simplificação, motores que acionam equipamentos classificados como SECE (devido à perda de contenção) não devem receber a classificação SECE."

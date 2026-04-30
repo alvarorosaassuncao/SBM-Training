@@ -1,0 +1,347 @@
+export const isoContentRaw = `A NBR ISO 14224 – Coleta e troca de dados de confiabilidade e manutenção de equipamentos é uma norma internacional utilizada para padronizar o registro de dados técnicos de manutenção, permitindo que empresas analisem falhas, aumentem a confiabilidade dos equipamentos e reduzam custos operacionais.
+
+Essa norma é amplamente aplicada em indústrias, facilities, empresas de manutenção e engenharia, pois define como devem ser coletadas as informações técnicas das intervenções realizadas.
+
+A aplicação da NBR ISO 14224 nas ordens de serviço permite criar um histórico técnico confiável, possibilitando análises de desempenho e tomada de decisões baseadas em dados.
+
+Neste artigo você vai entender:
+
+O que é a NBR ISO 14224
+
+Quais dados devem ser registrados
+
+Como aplicar a norma nas ordens de serviço
+
+Benefícios da análise de confiabilidade
+
+Como organizar dados de manutenção
+
+O que é a NBR ISO 14224
+A NBR ISO 14224 é uma norma técnica que define métodos para coleta, organização e análise de dados de manutenção e confiabilidade de equipamentos.
+
+O principal objetivo da norma é permitir que as empresas possam:
+
+Identificar falhas recorrentes
+
+Medir confiabilidade
+
+Melhorar a manutenção preventiva
+
+Reduzir custos
+
+Aumentar a disponibilidade dos equipamentos
+
+A norma é muito utilizada em:
+
+Indústrias
+
+Empresas de manutenção
+
+Facilities
+
+Energia
+
+Petróleo e gás
+
+Hospitais
+
+Logística
+
+Engenharia
+
+A NBR ISO 14224 é considerada a base da manutenção orientada por dados.
+
+O que a NBR ISO 14224 Define
+A norma estabelece padrões para coleta e estruturação de dados técnicos.
+
+Entre os principais pontos estão:
+
+Identificação do equipamento
+Cada equipamento deve possuir identificação clara, como:
+
+Código do equipamento
+
+Tipo de equipamento
+
+Localização
+
+Fabricante
+
+Modelo
+
+Essas informações devem estar presentes nas ordens de serviço de manutenção.
+
+Registro de Falhas
+A norma recomenda registrar:
+
+Tipo de falha
+
+Data da falha
+
+Sintoma observado
+
+Causa provável
+
+Ação corretiva
+
+Essas informações são fundamentais para análise de confiabilidade.
+
+Histórico de Manutenção
+A NBR ISO 14224 exige rastreabilidade completa das intervenções.
+
+Isso inclui:
+
+Manutenções preventivas
+
+Manutenções corretivas
+
+Inspeções
+
+Ajustes
+
+Substituições
+
+Esses dados normalmente são registrados nas ordens de serviço.
+
+Tempo de Manutenção
+A norma valoriza o controle de tempo técnico.
+
+Exemplos:
+
+Tempo de parada
+
+Tempo de reparo
+
+Tempo de atendimento
+
+Tempo de diagnóstico
+
+Essas informações permitem calcular indicadores importantes.
+
+Indicadores Baseados na NBR ISO 14224
+A norma permite gerar indicadores fundamentais.
+
+MTBF (Tempo Médio Entre Falhas)
+Indica quanto tempo um equipamento opera sem falhas.
+
+Quanto maior o MTBF, maior a confiabilidade.
+
+Ordens de serviço bem registradas permitem calcular esse indicador.
+
+MTTR (Tempo Médio de Reparo)
+Indica quanto tempo é necessário para corrigir uma falha.
+
+Ordens de serviço registram:
+
+Hora de início
+
+Hora de término
+
+Esses dados permitem medir eficiência técnica.
+
+Disponibilidade de Equipamentos
+A norma permite medir a disponibilidade operacional.
+
+Isso depende diretamente do histórico de manutenção.
+
+Sem ordens de serviço organizadas esse cálculo é impossível.
+
+A Importância da NBR ISO 14224 nas Ordens de Serviço
+A aplicação da NBR ISO 14224 nas ordens de serviço transforma a manutenção em um processo orientado por dados.
+
+Uma ordem de serviço alinhada com a norma deve conter:
+
+Identificação do equipamento
+Código
+
+Nome
+
+Localização
+
+Tipo de manutenção
+Preventiva
+
+Corretiva
+
+Inspeção
+
+Descrição técnica
+Falha identificada
+
+Causa provável
+
+Solução aplicada
+
+Tempo de execução
+Início
+
+Término
+
+Duração
+
+Recursos utilizados
+Peças
+
+Materiais
+
+Técnicos envolvidos
+
+Resultados
+Equipamento normalizado
+
+Ajuste realizado
+
+Peça substituída
+
+Problemas de Não Seguir a NBR ISO 14224
+Empresas que não coletam dados corretamente enfrentam grandes dificuldades.
+
+Falta de Indicadores
+Sem dados confiáveis não é possível medir:
+
+Desempenho
+
+Produtividade
+
+Confiabilidade
+
+Decisões Baseadas em Achismo
+Sem histórico técnico:
+
+Trocas de peças podem ser desnecessárias
+
+Falhas continuam acontecendo
+
+Custos aumentam
+
+Falta de Histórico Técnico
+Sem registros organizados:
+
+Falhas recorrentes não são identificadas
+
+Equipamentos ficam sem controle
+
+Auditorias ficam difíceis
+
+Como Aplicar a NBR ISO 14224 na Prática
+A melhor forma de aplicar a norma é estruturar o registro de dados técnicos.
+
+Padronização das Ordens de Serviço
+As ordens de serviço devem conter:
+
+Equipamento
+
+Tipo de manutenção
+
+Falha
+
+Causa
+
+Solução
+
+Tempo
+
+Técnico responsável
+
+Estrutura de Cadastro de Equipamentos
+Cada equipamento deve possuir cadastro com:
+
+Código
+
+Localização
+
+Histórico
+
+Manutenções anteriores
+
+Registro de Falhas
+Cada falha deve ser documentada.
+
+Exemplo:
+
+Sintoma
+
+Causa provável
+
+Correção aplicada
+
+Como um Sistema de Ordem de Serviço Ajuda na NBR ISO 14224
+Planilhas e papéis não são adequados para aplicação da norma.
+
+Problemas comuns:
+
+Dados incompletos
+
+Falta de padrão
+
+Informações perdidas
+
+Falta de histórico
+
+Um sistema de ordem de serviço permite:
+
+Registrar dados padronizados
+
+Controlar equipamentos
+
+Registrar falhas
+
+Medir tempos
+
+Gerar indicadores
+
+Manter histórico completo
+
+Uma forma prática de aplicar a NBR ISO 14224 nas ordens de serviço é utilizar um sistema especializado como o Online OS, que permite registrar dados técnicos, acompanhar histórico de equipamentos e gerar informações importantes para análise de confiabilidade.
+
+Você pode testar gratuitamente por 5 dias e ver como organizar seus dados de manutenção:
+
+https://onlineos.com.br/
+
+Benefícios de Seguir a NBR ISO 14224
+Empresas que aplicam a norma conseguem resultados superiores.
+
+Manutenção baseada em dados
+Decisões mais inteligentes.
+
+Mais confiabilidade
+Equipamentos falham menos.
+
+Redução de custos
+Manutenção mais eficiente.
+
+Melhor planejamento
+Baseado em histórico real.
+
+Mais produtividade
+Equipes mais eficientes.
+
+Quem Deve Utilizar a NBR ISO 14224
+A norma é indicada para empresas que trabalham com:
+
+Manutenção industrial
+
+Facilities
+
+Engenharia
+
+Equipamentos técnicos
+
+Energia
+
+Indústrias
+
+Manutenção predial
+
+Assistência técnica
+
+Se sua empresa trabalha com ordens de serviço e equipamentos, a NBR ISO 14224 é extremamente recomendada.
+
+Conclusão
+A NBR ISO 14224 – Coleta e troca de dados de confiabilidade e manutenção de equipamentos é essencial para empresas que querem evoluir para uma manutenção orientada por dados.
+
+Empresas que aplicam a norma conseguem melhorar a confiabilidade dos equipamentos, reduzir custos e tomar decisões mais inteligentes.
+
+A melhor forma de aplicar a NBR ISO 14224 é através de ordens de serviço padronizadas, garantindo histórico técnico completo e dados confiáveis.
+
+A união entre normas técnicas e sistemas digitais de ordem de serviço permite alcançar um nível profissional de gestão de manutenção.`;

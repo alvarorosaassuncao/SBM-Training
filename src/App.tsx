@@ -30,7 +30,15 @@ import {
   Trophy,
   Video,
   Play,
-  Clock
+  Clock,
+  X,
+  ZoomIn,
+  MonitorPlay,
+  PlaySquare,
+  FileText,
+  DownloadCloud,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
@@ -90,11 +98,15 @@ interface UserData {
   email: string;
 }
 
+import { isoContentRaw } from './isoContent';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('welcome');
   const [lang, setLang] = useState<Language>('pt');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [selectedModule, setSelectedModule] = useState<ModuleCategory | null>(null);
+  const [fullScreenImage, setFullScreenImage] = useState<string | null>(null);
+  const [isIsoModalOpen, setIsIsoModalOpen] = useState(false);
 
   const toggleLang = () => setLang(l => l === 'en' ? 'pt' : 'en');
 
@@ -140,10 +152,8 @@ export default function App() {
             {lang === 'en' ? 'ASSESSMENT' : 'AVALIAÇÃO'}
           </p>
           {[
-            { id: 'welcome', label: lang === 'en' ? 'Module Overview' : 'Visão dos Módulos', icon: BookOpen },
-            { id: 'quiz', label: lang === 'en' ? 'Final Quiz' : 'Quiz Final', icon: Trophy },
-            { id: 'pm-action', label: 'PM Action', icon: Settings },
-            { id: 'cr-walkthrough', label: 'Change Requests', icon: Video },
+            { id: 'welcome', label: lang === 'en' ? 'All Modules' : 'Todos os módulos', icon: BookOpen },
+            { id: 'quiz', label: lang === 'en' ? 'Final Quiz' : 'Quiz', icon: Trophy },
           ].map((item) => (
             <button
               key={item.id}
@@ -202,6 +212,7 @@ export default function App() {
                 onSelectModule={handleSelectModule} 
                 onWatchVideo={() => setActiveTab('cr-walkthrough')}
                 t={t}
+                onOpenIso={() => setIsIsoModalOpen(true)}
               />
             )}
             {activeTab === 'study' && selectedModule && (
@@ -210,6 +221,20 @@ export default function App() {
                 category={selectedModule} 
                 onBack={() => setActiveTab('welcome')}
                 onStartQuiz={handleStartQuiz}
+                onImageClick={setFullScreenImage}
+                t={t} 
+              />
+            )}
+            {activeTab === 'pm-action' && (
+              <PmActionView 
+                lang={lang} 
+                t={t} 
+                onImageClick={setFullScreenImage}
+              />
+            )}
+            {activeTab === 'cr-walkthrough' && (
+              <CrVideoView 
+                lang={lang} 
                 t={t} 
               />
             )}
@@ -225,7 +250,14 @@ export default function App() {
             )}
             {activeTab === 'quiz' && selectedModule && (
               userData ? (
-                <QuizView lang={lang} t={t} userData={userData} category={selectedModule} onBackToModules={() => setActiveTab('welcome')} />
+                <QuizView 
+                  lang={lang} 
+                  t={t} 
+                  userData={userData} 
+                  category={selectedModule} 
+                  onBackToModules={() => setActiveTab('welcome')} 
+                  onImageClick={setFullScreenImage}
+                />
               ) : (
                 <div className="flex-1 flex flex-col items-center justify-center p-10">
                   <div className="bg-white rounded-[40px] shadow-2xl p-10 text-center max-w-md border-8 border-slate-100 space-y-6">
@@ -286,7 +318,7 @@ export default function App() {
                 </div>
             )}
             { activeTab === 'pm-action' && (
-              <PmActionView lang={lang} t={t} />
+              <PmActionView lang={lang} t={t} onImageClick={setFullScreenImage} />
             )}
             {activeTab === 'cr-walkthrough' && (
               <CrVideoView lang={lang} t={t} />
@@ -294,6 +326,109 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {/* ISO Modal */}
+      {isIsoModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 md:p-8"
+          onClick={() => setIsIsoModalOpen(false)}
+        >
+          <div 
+            className="bg-white w-full max-w-4xl h-[80vh] rounded-[40px] shadow-2xl flex flex-col overflow-hidden relative border-8 border-slate-200"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="bg-sbm-dark-grey p-6 flex justify-between items-center text-white shrink-0">
+              <div className="flex items-center gap-4">
+                <Info size={28} className="text-sbm-orange" />
+                <h2 className="text-2xl font-black uppercase tracking-widest">ISO 14224 & INS.471.6 Specifications</h2>
+              </div>
+              <button 
+                onClick={() => setIsIsoModalOpen(false)}
+                className="text-white hover:text-sbm-orange transition-colors p-2 bg-white/10 hover:bg-white/20 rounded-full"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="p-8 overflow-y-auto flex-1 bg-white">
+              <div className="max-w-4xl mx-auto space-y-6 pb-12">
+                {isoContentRaw.split('\n\n').map((paragraph, idx) => {
+                  const p = paragraph.trim();
+                  if (!p) return null;
+                  
+                  // Heuristic for Headings
+                  if (p.length < 60 && !p.endsWith('.') && !p.endsWith(';')) {
+                    return (
+                      <h3 key={idx} className="text-lg font-bold text-sbm-dark-grey tracking-tight pt-6 border-b-2 border-slate-100 pb-2 flex items-center gap-2">
+                        <span className="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                          <Info size={16} />
+                        </span>
+                        {p}
+                      </h3>
+                    );
+                  }
+                  
+                  // Heuristic for List items
+                  if (p.length < 120 && !p.endsWith('.')) {
+                    return (
+                      <div key={idx} className="flex items-center gap-4 bg-slate-50 hover:bg-slate-100 transition-colors p-4 md:p-5 rounded-2xl border border-slate-200">
+                         <div className="w-3 h-3 bg-sbm-orange rounded-full shrink-0 shadow-sm"></div>
+                         <p className="text-slate-700 font-bold text-lg">{p}</p>
+                      </div>
+                    );
+                  }
+                  
+                  // Regular paragraph
+                  return (
+                    <p key={idx} className="text-base text-slate-600 font-medium leading-[1.6] bg-slate-50/50 p-4 rounded-2xl">
+                      {p}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Global Image Lightbox */}
+      <AnimatePresence>
+        {fullScreenImage && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setFullScreenImage(null)}
+            className="fixed inset-0 z-[100] bg-sbm-dark-grey/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-7xl w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setFullScreenImage(null)}
+                className="absolute -top-12 right-0 md:-top-16 md:-right-16 bg-white/10 hover:bg-white/20 text-white p-4 rounded-full transition-all group"
+              >
+                <X size={32} className="group-hover:rotate-90 transition-transform" />
+              </button>
+              
+              <div className="bg-white p-2 rounded-[32px] shadow-2xl overflow-hidden w-full h-full flex items-center justify-center">
+                 <img 
+                   src={fullScreenImage} 
+                   alt="Full View" 
+                   className="max-w-full max-h-full object-contain rounded-2xl"
+                 />
+              </div>
+
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-sbm-orange text-white px-6 py-2 rounded-full font-black text-[10px] uppercase tracking-widest shadow-2xl flex items-center gap-2">
+                <ZoomIn size={14} /> SBM Technical Asset View
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -380,7 +515,7 @@ function Lock({ size }: { size: number }) {
   );
 }
 
-function WelcomeView({ lang, onSelectModule, onWatchVideo, t }: { lang: Language, onSelectModule: (cat: ModuleCategory) => void, onWatchVideo: () => void, t: any }) {
+function WelcomeView({ lang, onSelectModule, onWatchVideo, t, onOpenIso }: { lang: Language, onSelectModule: (cat: ModuleCategory) => void, onWatchVideo: () => void, t: any, onOpenIso: () => void }) {
   return (
     <div className="space-y-12 pb-20">
       <header className="space-y-4">
@@ -388,7 +523,9 @@ function WelcomeView({ lang, onSelectModule, onWatchVideo, t }: { lang: Language
           <SbmLogo className="h-8 w-auto grayscale opacity-50 block" />
           <div className="w-px h-4 bg-slate-300 hidden md:block"></div>
           <div className="px-3 py-2 md:px-4 bg-sbm-orange text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-100 italic">SBM Certification</div>
-          <div className="px-3 py-2 md:px-4 bg-slate-200 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-300">ISO 14224 & INS.471.6</div>
+          <button onClick={onOpenIso} className="px-3 py-2 md:px-4 bg-slate-200 text-slate-600 hover:bg-slate-300 hover:text-sbm-dark-grey transition-colors cursor-pointer rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-300 flex items-center gap-2">
+            <Info size={12} /> ISO 14224 & INS.471.6
+          </button>
           <div className="hidden sm:block px-4 py-2 bg-slate-200 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-300">Rev 2026</div>
         </div>
         <h1 className="text-5xl lg:text-6xl font-black text-sbm-dark-grey tracking-tighter max-w-4xl leading-[1.1]">
@@ -534,7 +671,7 @@ function WelcomeView({ lang, onSelectModule, onWatchVideo, t }: { lang: Language
         <div className="space-y-2">
           <h4 className="text-xs font-black text-sbm-orange uppercase tracking-widest">{lang === 'en' ? 'Certification' : 'Certificação'}</h4>
           <p className="text-[11px] font-medium text-slate-500 leading-relaxed uppercase">
-            Requires 70% Score in each individual module exam
+            Requires 80% Score in each individual module exam
           </p>
         </div>
         <div className="space-y-2">
@@ -548,7 +685,11 @@ function WelcomeView({ lang, onSelectModule, onWatchVideo, t }: { lang: Language
   );
 }
 
-function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language, category: ModuleCategory, onBack: () => void, onStartQuiz: () => void, t: any }) {
+function StudyView({ lang, category, onBack, onStartQuiz, onImageClick, t }: { lang: Language, category: ModuleCategory, onBack: () => void, onStartQuiz: () => void, onImageClick: (src: string) => void, t: any }) {
+  const [isPresentationOpen, setIsPresentationOpen] = useState(false);
+  const [presentationViewMode, setPresentationViewMode] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
   const content = MODULES_STUDY.find(m => m.category === category);
   if (!content) return null;
 
@@ -566,6 +707,7 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
           <a 
             href={getAssetUrl(content.pdfUrl)} 
             target="_blank" 
+            download
             rel="noopener noreferrer"
             className="flex items-center gap-3 bg-white text-sbm-dark-grey px-6 py-3 rounded-2xl shadow-sm font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-colors border border-slate-100"
           >
@@ -625,9 +767,9 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
                  </h2>
               </div>
               
-              <div className={`grid grid-cols-1 ${section.image ? 'lg:grid-cols-2' : ''} gap-12`}>
+              <div className="flex flex-col gap-8">
                  <div className="space-y-6">
-                    <p className="text-xl text-slate-600 font-medium leading-[1.6] first-letter:text-4xl first-letter:font-black first-letter:text-sbm-orange first-letter:mr-1 first-letter:float-left">
+                    <p className="text-xl text-slate-600 font-medium leading-[1.6] first-letter:text-4xl first-letter:font-black first-letter:text-sbm-orange first-letter:mr-1 first-letter:float-left whitespace-pre-line">
                       {t(section.content)}
                     </p>
                     <div className="p-6 bg-orange-50/50 border-l-4 border-sbm-orange rounded-r-3xl space-y-2">
@@ -644,12 +786,15 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
 
                  {section.image && (
                    <div className="space-y-4">
-                     <div className="bg-slate-100/50 p-4 rounded-[40px] border border-slate-200">
-                        <div className="rounded-[28px] overflow-hidden border-2 border-slate-200 shadow-2xl bg-white">
+                     <div className="bg-slate-100/50 p-6 flex flex-col items-center rounded-[40px] border border-slate-200">
+                        <div className="w-full max-w-4xl rounded-[28px] overflow-hidden border-2 border-slate-200 shadow-2xl bg-white group cursor-zoom-in relative" onClick={() => onImageClick(getAssetUrl(section.image!))}>
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center z-10 pointer-events-none">
+                             <ZoomIn className="text-white opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all" size={48} />
+                          </div>
                           <img 
                             src={getAssetUrl(section.image)} 
                             alt="Document Asset" 
-                            className="w-full h-auto opacity-100 transition-all cursor-zoom-in"
+                            className="w-full h-auto opacity-100 transition-all"
                           />
                         </div>
                      </div>
@@ -661,6 +806,49 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
               </div>
             </div>
           ))}
+
+          {/* Presentation Block */}
+          {content.presentation && (
+            <div className="mt-16 pt-16 border-t-4 border-slate-100">
+               <div className="flex items-center gap-6 mb-8">
+                 <span className="flex-shrink-0 w-12 h-12 bg-sbm-orange text-white rounded-2xl flex items-center justify-center shadow-lg shadow-orange-200">
+                   <MonitorPlay size={24} />
+                 </span>
+                 <h2 className="text-3xl font-black text-sbm-dark-grey tracking-tight flex-grow">
+                   {lang === 'en' ? 'Interactive Presentation' : 'Apresentação Interativa'}
+                 </h2>
+               </div>
+               
+               <div 
+                 onClick={() => setIsPresentationOpen(true)}
+                 className="relative w-full rounded-[40px] overflow-hidden border-4 border-slate-100 shadow-2xl bg-sbm-dark-grey group cursor-pointer"
+               >
+                 {content.presentation.coverImage ? (
+                   <img 
+                     src={getAssetUrl(content.presentation.coverImage)} 
+                     alt="Cover" 
+                     className="w-full h-80 object-cover opacity-50 group-hover:scale-105 transition-transform duration-700 blur-[2px] group-hover:blur-0"
+                   />
+                 ) : (
+                   <div className="w-full h-80 bg-slate-800"></div>
+                 )}
+                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 group-hover:bg-black/20 transition-colors p-8 text-center">
+                    <div className="w-20 h-20 bg-sbm-orange text-white rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(242,101,34,0.6)] group-hover:scale-110 transition-transform">
+                      <PlaySquare size={32} className="ml-2" />
+                    </div>
+                    <h3 className="text-3xl font-black text-white tracking-widest uppercase text-shadow-md">
+                      {t(content.presentation.title)}
+                    </h3>
+                    <p className="text-slate-200 font-medium mt-2 max-w-lg">
+                      {t(content.presentation.description)}
+                    </p>
+                    <div className="mt-6 px-6 py-2 bg-white/20 backdrop-blur-md rounded-full text-white font-bold text-xs uppercase tracking-widest border border-white/30">
+                      {lang === 'en' ? 'Click to Expand Presentation' : 'Clique para Expandir Apresentação'}
+                    </div>
+                 </div>
+               </div>
+            </div>
+          )}
         </div>
 
         {/* Document Footer Decoration */}
@@ -693,10 +881,139 @@ function StudyView({ lang, category, onBack, onStartQuiz, t }: { lang: Language,
            {lang === 'en' ? 'Start Exam' : 'Iniciar Exame'} <ArrowRight size={24} />
          </button>
       </div>
+
+      {/* Presentation Full Screen Modal */}
+      <AnimatePresence>
+        {isPresentationOpen && content.presentation && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed inset-0 z-[100] bg-sbm-dark-grey flex flex-col"
+          >
+            <div className={`flex justify-between items-center p-6 border-b border-white/10 bg-black/20 ${isFullscreen ? 'hidden' : 'flex'}`}>
+              <div className="flex items-center gap-4 text-white">
+                <div className="w-12 h-12 bg-sbm-orange rounded-xl flex items-center justify-center">
+                  <MonitorPlay size={24} />
+                </div>
+                <div>
+                  <div className="text-[10px] font-black text-sbm-orange uppercase tracking-widest">
+                    {lang === 'en' ? 'Presentation Viewer' : 'Visualizador de Apresentação'}
+                  </div>
+                  <h2 className="text-xl font-black tracking-widest uppercase">
+                    {t(content.presentation.title)}
+                  </h2>
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  if (presentationViewMode) {
+                    setPresentationViewMode(false);
+                  } else {
+                    setIsPresentationOpen(false);
+                  }
+                  setIsFullscreen(false);
+                }}
+                className="w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className={`flex-1 flex flex-col items-center justify-center relative overflow-hidden ${isFullscreen ? 'p-0' : 'p-4 md:p-8'}`}>
+               {/* Decorative Background */}
+               {!isFullscreen && (
+                 <div className="absolute inset-0 opacity-20 pointer-events-none">
+                   <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sbm-orange rounded-full blur-[120px]"></div>
+                   <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-[120px]"></div>
+                 </div>
+               )}
+               
+               {presentationViewMode ? (
+                 <div className={`relative z-10 w-full h-full bg-white shadow-2xl flex flex-col ${isFullscreen ? 'rounded-0' : 'max-w-6xl rounded-[32px]'}`}>
+                   <div className="bg-slate-100 p-4 border-b border-slate-200 flex justify-between items-center shrink-0">
+                     <div className="font-bold text-slate-700 flex items-center gap-2">
+                       <MonitorPlay size={18} className="text-sbm-orange" />
+                       {lang === 'en' ? 'Presentation Mode' : 'Modo de Apresentação'}
+                     </div>
+                     <div className="flex items-center gap-4">
+                        <div className="text-[10px] font-medium text-slate-500 hidden sm:block">
+                          {lang === 'en' 
+                            ? 'Technical Blueprint Review'
+                            : 'Revisão Técnica Blueprint'}
+                        </div>
+                        <button 
+                          onClick={() => setIsFullscreen(!isFullscreen)}
+                          className="flex items-center gap-2 px-4 py-1 bg-white border border-slate-200 rounded-lg text-xs font-black text-slate-600 hover:bg-slate-50 transition-all shadow-sm"
+                        >
+                          {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
+                          {isFullscreen ? (lang === 'en' ? 'Exit Fullscreen' : 'Sair da Tela Cheia') : (lang === 'en' ? 'Fullscreen' : 'Tela Cheia')}
+                        </button>
+                        {isFullscreen && (
+                          <button 
+                            onClick={() => {
+                              setIsFullscreen(false);
+                              setPresentationViewMode(false);
+                            }}
+                            className="p-1 text-slate-400 hover:text-rose-500 transition-colors"
+                          >
+                            <X size={20} />
+                          </button>
+                        )}
+                     </div>
+                   </div>
+                   <div className="flex-1 w-full bg-slate-200 relative">
+                     {/* Try to display using standard iframe, but note that for PPTX it might prompt a download. */}
+                     <iframe 
+                       src={getAssetUrl(content.presentation.fileUrl)} 
+                       className="w-full h-full absolute inset-0"
+                       frameBorder="0"
+                       title="Presentation Viewer"
+                     />
+                   </div>
+                 </div>
+               ) : (
+                 <div className="relative z-10 w-full max-w-5xl bg-white/5 backdrop-blur-2xl rounded-[48px] border border-white/10 p-12 md:p-24 flex flex-col items-center text-center shadow-2xl">
+                   <div className="w-32 h-32 bg-white/10 rounded-[32px] flex items-center justify-center text-sbm-orange mb-8 shadow-inner border border-white/5">
+                     <FileText size={64} />
+                   </div>
+                   <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
+                     {t(content.presentation.title)}
+                   </h3>
+                   <p className="text-xl text-slate-300 font-medium max-w-2xl mb-12">
+                     {lang === 'en' 
+                       ? 'This module contains a comprehensive structural blueprint presentation. Choose how you want to view the content below.'
+                       : 'Este módulo contém uma apresentação estrutural abrangente. Escolha como deseja visualizar o conteúdo abaixo.'}
+                   </p>
+                   
+                   <div className="flex flex-col md:flex-row gap-6 w-full justify-center items-center">
+                     <a 
+                       href={getAssetUrl(content.presentation.fileUrl)}
+                       download
+                       className="group relative flex items-center justify-center gap-4 bg-sbm-orange text-white px-8 py-5 rounded-full font-black text-lg uppercase tracking-widest shadow-[0_0_40px_rgba(242,101,34,0.4)] hover:shadow-[0_0_60px_rgba(242,101,34,0.8)] hover:scale-105 transition-all w-full md:w-auto min-w-[280px]"
+                     >
+                       <DownloadCloud size={24} className="group-hover:-translate-y-1 transition-transform" />
+                       {lang === 'en' ? 'Download File' : 'Baixar Arquivo'}
+                     </a>
+                     
+                     <button 
+                       onClick={() => setPresentationViewMode(true)}
+                       className="group relative flex items-center justify-center gap-4 bg-slate-800 hover:bg-slate-700 text-white px-8 py-5 rounded-full font-black text-lg uppercase tracking-widest shadow-xl hover:shadow-2xl hover:scale-105 transition-all border border-slate-700 w-full md:w-auto min-w-[280px]"
+                     >
+                       <MonitorPlay size={24} className="text-sbm-orange group-hover:scale-110 transition-transform" />
+                       {lang === 'en' ? 'View on Site' : 'Ver no Site'}
+                     </button>
+                   </div>
+                 </div>
+               )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Language, t: any, userData: UserData, category: ModuleCategory, onBackToModules: () => void }) {
+function QuizView({ lang, t, userData, category, onBackToModules, onImageClick }: { lang: Language, t: any, userData: UserData, category: ModuleCategory, onBackToModules: () => void, onImageClick: (src: string) => void }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -833,7 +1150,7 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
       setTimeout(() => {
         document.body.removeChild(link);
         URL.revokeObjectURL(blobUrl);
-      }, 100);
+      }, 5000);
       
       console.log("PDF download triggered successfully via Blob URL.");
     } catch (err) {
@@ -847,7 +1164,7 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
   };
 
   if (showResult && !reviewMode) {
-    const passed = (score / filteredQuestions.length) >= 0.7;
+    const passed = (score / filteredQuestions.length) >= 0.8;
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-10">
         <div className="bg-white rounded-[40px] shadow-2xl p-16 text-center max-w-xl space-y-8 border-8 border-slate-100 flex flex-col items-center">
@@ -949,11 +1266,12 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
                </div>
                {question.image && (
                  <div className="rounded-2xl overflow-hidden border-4 border-slate-100 shadow-inner bg-slate-50">
-                   <img 
-                     src={getAssetUrl(question.image)} 
-                     alt="Technical Reference" 
-                     className="w-full h-auto max-h-48 object-contain"
-                   />
+                    <img 
+                      src={getAssetUrl(question.image)} 
+                      alt="Technical Reference" 
+                      onClick={() => onImageClick(getAssetUrl(question.image!))}
+                      className="w-full h-auto max-h-48 object-contain cursor-zoom-in hover:opacity-80 transition-opacity"
+                    />
                  </div>
                )}
                <h2 className="text-2xl font-black text-sbm-dark-grey leading-tight">
@@ -1036,11 +1354,12 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
            </div>
            {question.image && (
              <div className="rounded-2xl overflow-hidden border-4 border-slate-100 shadow-inner bg-slate-50">
-               <img 
-                 src={getAssetUrl(question.image)} 
-                 alt="Technical Reference" 
-                 className="w-full h-auto max-h-64 object-contain"
-               />
+                <img 
+                  src={getAssetUrl(question.image)} 
+                  alt="Technical Reference" 
+                  onClick={() => onImageClick(getAssetUrl(question.image!))}
+                  className="w-full h-auto max-h-64 object-contain cursor-zoom-in hover:opacity-80 transition-opacity"
+                />
              </div>
            )}
            <h2 className="text-2xl font-black text-sbm-dark-grey leading-tight">
@@ -1115,7 +1434,7 @@ function QuizView({ lang, t, userData, category, onBackToModules }: { lang: Lang
     </div>
   );
 }
-function PmActionView({ lang, t }: { lang: Language, t: any }) {
+function PmActionView({ lang, t, onImageClick }: { lang: Language, t: any, onImageClick: (url: string) => void }) {
   const [currentStep, setCurrentStep] = useState(0);
   const totalSteps = PM_ACTION_CARDS.length;
   const card = PM_ACTION_CARDS[currentStep];
@@ -1187,14 +1506,17 @@ function PmActionView({ lang, t }: { lang: Language, t: any }) {
           className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start"
         >
           {/* Visual Evidence Card */}
-          <div className="lg:col-span-7 bg-white rounded-[50px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100 group cursor-zoom-in">
+          <div className="lg:col-span-7 bg-white rounded-[50px] shadow-2xl overflow-hidden border-8 border-white ring-1 ring-slate-100 group cursor-zoom-in" onClick={() => onImageClick(getAssetUrl(card.image))}>
              <div className="aspect-video relative">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center z-10 pointer-events-none">
+                   <ZoomIn className="text-white opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all" size={48} />
+                </div>
                 <img 
                   src={getAssetUrl(card.image)} 
                   alt={t(card.title)} 
                   className="w-full h-full object-contain bg-slate-50 transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute top-6 left-6 bg-sbm-dark-grey text-white px-6 py-2 rounded-full font-black text-xs shadow-xl flex items-center gap-2">
+                <div className="absolute top-6 left-6 bg-sbm-dark-grey text-white px-6 py-2 rounded-full font-black text-xs shadow-xl flex items-center gap-2 z-20">
                   <Settings size={14} className="text-sbm-orange" />
                   IFS SYSTEM INTERFACE
                 </div>

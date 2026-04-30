@@ -37,6 +37,12 @@ export interface ModuleStudy {
     content: LocalizedString;
     image?: string;
   }[];
+  presentation?: {
+    title: LocalizedString;
+    description: LocalizedString;
+    fileUrl: string;
+    coverImage?: string;
+  };
 }
 
 export interface QuizQuestion {
